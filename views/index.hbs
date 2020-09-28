@@ -1,12 +1,14 @@
 {{> navbar }}
 
 
-<h1>Rabbeat music</h1>
+<h1>Rabbeat <img src="/images/dot.png" alt="dot" class="dot">music</h1>
 <p>Welcome to {{title}}</p>
 
-
-<form action="/search" method="get">
-    <label for="song">Search song: </label>
-    <input type="text" name="song" id="song" required>
-    <input type="submit" value ="Search">
+<div class="searchBox">
+<form action="/search" method="get" >
+    <label for="song"></label>
+    <input type="search" name="song" class="searchBar" placeholder="Search song..."id="song" required>
+    <button type="submit" value ="Search" class="searchBtn"><i class="fa fa-search"></i></button>
 </form>
+</div>
+
