@@ -39,7 +39,7 @@ router.get("/init-playlist/:id", function (req, res, next) {
         },
       })
         .then((response) => {
-         console.log(response.data);
+        // console.log(response.data);
           res.render("connected/create-playlist", {
             song: response.data,
           });
@@ -52,7 +52,11 @@ router.get("/init-playlist/:id", function (req, res, next) {
     .catch(function (error) {});
 });
 
-/* const newPlaylist = req.body;
-    const dbResult = await Playlist.create(newPlaylist); */
+
+router.post("/create-playlist", async function (req, res, next) {
+    const newPlaylist = req.body;
+   // console.log(newPlaylist);
+   const dbResult = await Playlist.create(newPlaylist);
+});
 
 module.exports = router;
