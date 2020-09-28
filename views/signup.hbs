@@ -8,10 +8,10 @@
   <p class="message {{msg.status}}">{{msg.text}}</p>
   {{/if}} --}}
 
-  <form method="post" action="/signup" id="form_user">
+  <form method="post" action="/auth/signup" id="form_user">
     <div class="">
-      <label for="firstname" class="">User name</label>
-      <input id="firstname" name="name" type="text" class="" placeholder="Toto" required value="toto">
+      <label for="username" class="">User name</label>
+      <input id="username" name="username" type="text" class="" placeholder="Toto" required value="toto">
     </div>
     <div class="">
       <label for="email" class="">Email</label>
@@ -24,5 +24,5 @@
     </div>
     <button class="">Create Account</button>
   </form>
-  <p class="">Already have an account ? <a href="/signin" class="">Sign In</a></p>
+  <p class="">Already have an account ? <a href="/auth/signin" class="">Sign In</a></p>
 </section>
