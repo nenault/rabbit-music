@@ -1,6 +1,6 @@
 <h1>Editer une playlist</h1>
 
- <form method="post" action="/playlists/create-playlist" id="form-playlist">
+ <form method="post" action="/playlists/edit-playlist/{{playlist._id}}" id="form-playlist">
 
 <label for="playlist-name" class="">Nom de la playlist</label>
 <input id="playlist-name" name="name" type="playlist-name" class="" value="{{playlist.name}}" required>
@@ -18,5 +18,16 @@
 {{/each}}
 
  <button class="">Edit playlist</button>
+ </form>
 
-  </form>
+ <div class="search">
+<form id="searchBox" class="searchBox" action="" method="get" >
+    <label for="song"></label>
+    <input type="search" name="song-search" class="searchBar" placeholder="Search song..." id="song-search" required>
+    <button type="submit" value ="Search" class="searchBtn"><i class="fa fa-search"></i></button>
+</form>
+</div>
+
+<div id="search-result"></div>
+
+  

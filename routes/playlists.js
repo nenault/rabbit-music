@@ -4,8 +4,7 @@ const axios = require("axios");
 const Playlist = require("../models/playlist");
 
 router.get("/init-playlist/:id", function (req, res, next) {
-  //console.log(req.params.id);
-
+ 
   axios({
     url: "https://accounts.spotify.com/api/token",
     method: "post",
@@ -129,6 +128,7 @@ router.get("/edit-playlist/:id", async (req, res, next) => {
               playlist: dbResult,
               songs: response.data.tracks,
               arrayId: arrayId,
+              javascripts: ["playlists"]
             });
           })
           .catch((err) => {
@@ -152,6 +152,49 @@ router.post("/edit-playlist/:id", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+
+router.get("/edit-playlist/:id/:query", function (req, res, next) {
+  axios({
+    url: "https://accounts.spotify.com/api/token",
+    method: "post",
+    params: {
+      grant_type: "client_credentials",
+    },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    auth: {
+      username: process.env.CLIENT_ID,
+      password: process.env.CLIENT_SECRET,  
+    },
+  })
+    .then(function (response) {
+      const accessToken = response.data.access_token;
+      const refreshToken = response.data.refresh_token;
+
+      axios({
+        url: `https://api.spotify.com/v1/search?q=${req.params.query}&type=track,artist&limit=6`,
+
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: {
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        },
+      })
+        .then((response) => {
+         res.send(response.data.tracks.items);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch(function (error) {});
 });
 
 module.exports = router;
