@@ -7,5 +7,7 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/login", function (req, res, next) {
-  res.render("login", { title: "Rabbit musicc", javascripts: ["search"] });
+  res.render("signin");
 });
+
+module.exports = router;
