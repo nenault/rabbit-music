@@ -3,10 +3,10 @@ const router = express.Router();
 const axios = require("axios");
 
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Rabbit music" });
+  res.render("index", { title: "Rabbit musicc",  javascripts: ["search"]});
 });
 
-router.get("/song-search", function (req, res, next) {
+router.get("/search", function (req, res, next) {
   axios({
     url: "https://accounts.spotify.com/api/token",
     method: "post",
@@ -23,12 +23,12 @@ router.get("/song-search", function (req, res, next) {
     },
   })
     .then(function (response) {
-      // console.log(response.data.access_token);
+      console.log("response.data.access_token");
       const accessToken = response.data.access_token;
       const refreshToken = response.data.refresh_token;
 
       axios({
-        url: `https://api.spotify.com/v1/search?q=${req.query.song}&type=track`,
+        url: `https://api.spotify.com/v1/search?q=${req.query.song}&type=track,artist`,
         
         headers: {
           Accept: "application/json",
