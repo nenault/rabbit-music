@@ -23,7 +23,7 @@ body {
   font-size: 6em;
   font-weight: lighter;
   text-align: center;
-  margin-top : 90px;
+  margin-top : 30px;
   color : rgb(237, 200, 50);
   
 }
@@ -48,6 +48,7 @@ body {
     height: 20px;
     border-radius: 20px 0 0 20px;
     outline: none;
+    font-size : 1.3em;
   }
   
   .searchBtn {
@@ -65,7 +66,7 @@ body {
 .search {
     display : flex;
     justify-content: center;
-    margin-top : 70px;
+    margin-top : 40px;
 }
 
 footer img {
@@ -76,4 +77,18 @@ footer img {
  bottom : 0;
  left : 42%;
  
+}
+
+.display {
+    width : 60vw;
+    height : 40vh;
+    margin : 60px auto;
+    display : flex;
+    justify-content: space-between;
+
+}
+.displaylist {
+    border : white solid 1px;
+    width : 30%;
+    height : 100%;
 }
