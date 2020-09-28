@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-//  const Playlist = require("../models/playlist");
+const Playlist = require("../models/playlist");
 
-router.get("/create-playlist/:id", function (req, res, next) {
+router.get("/init-playlist/:id", function (req, res, next) {
   //console.log(req.params.id);
 
   axios({

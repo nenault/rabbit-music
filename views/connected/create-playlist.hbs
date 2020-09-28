@@ -4,13 +4,11 @@
 <input id="playlist-name" name="playlist-name" type="playlist-name" class="" placeholder="Ma super playlist" required>
 
 <div class="song" song-id="{{song.id}}">
-    <p>{{song.name}} de {{#each song.artists}}{{song.name}}, {{/each}}</p>
+    <p>{{song.name}} de {{#each song.artists}}{{name}}, {{/each}}</p>
     <audio controls src="{{song.preview_url}}">
         Your browser does not support the
         <code>audio</code> element.
     </audio>
-    <a class="see-all-btn" href="/">See all playlists</a>
-    <a class="add-btn" href="playlists/create-playlist/{{song.id}}">Add to a playlist</a>
 </div>
 
 
