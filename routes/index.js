@@ -19,7 +19,7 @@ router.get("/search", function (req, res, next) {
     },
     auth: {
       username: process.env.CLIENT_ID,
-      password: process.env.CLIENT_SECRET,
+      password: process.env.CLIENT_SECRET,  
     },
   })
     .then(function (response) {
@@ -28,7 +28,7 @@ router.get("/search", function (req, res, next) {
       const refreshToken = response.data.refresh_token;
 
       axios({
-        url: `https://api.spotify.com/v1/search?q=${req.query.song}&type=track,artist`,
+        url: `https://api.spotify.com/v1/search?q=${req.query.song}&type=track,artist&limit=6`,
 
         headers: {
           Accept: "application/json",

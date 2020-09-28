@@ -1,17 +1,21 @@
 <h1>Créer une playlist</h1>
 
+ <form method="post" action="/playlists/create-playlist" id="form-playlist">
+
 <label for="playlist-name" class="">Nom de la playlist</label>
-<input id="playlist-name" name="playlist-name" type="playlist-name" class="" placeholder="Ma super playlist" required>
+<input id="playlist-name" name="name" type="playlist-name" class="" placeholder="Ma super playlist" required>
+
+
+<input type="hidden" id="songs" name="songs" value="{{song.id}}">
 
 <div class="song" song-id="{{song.id}}">
-    <p>{{song.name}} de {{#each song.artists}}{{song.name}}, {{/each}}</p>
+    <p>{{song.name}} de {{#each song.artists}}{{name}}, {{/each}}</p>
     <audio controls src="{{song.preview_url}}">
         Your browser does not support the
         <code>audio</code> element.
     </audio>
-    <a class="see-all-btn" href="/">See all playlists</a>
-    <a class="add-btn" href="playlists/create-playlist/{{song.id}}">Add to a playlist</a>
 </div>
 
+ <button class="">Create playlist</button>
 
-<a href="/playlists/create-playlist">Create playlist</a>
+  </form>
