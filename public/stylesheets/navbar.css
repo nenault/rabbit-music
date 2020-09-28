@@ -1,8 +1,101 @@
-#navbar {
-    box-sizing: content-box;
-    margin: 0;
-    display: flex;
-    background-color: black;
-    color: white;
+@import url("https://fonts.googleapis.com/css2?family=Monoton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
 }
 
+#navbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+body {
+  width : 100vw;
+  background-color: black;
+  color: white;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+h1 {
+  font-family: "Monoton", cursive;
+  font-size: 6em;
+  font-weight: lighter;
+  text-align: center;
+  
+}
+
+.dot {
+    width : 1%;
+    height : auto;
+    margin : 0px 15px 20px 0px;
+
+}
+
+
+.searchBar {
+    width : 40%;
+    padding : 1%;
+    border : 3px solid white;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+.searchBtn {
+    width : 4%;
+    padding : 1%;
+    color : white;
+    border: 3px solid white;
+    background: black;
+    text-align: center;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size : 150%;
+}
+
+/* --------------- */
+
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+  }
+  
+  .searchTerm {
+    width: 100%;
+    border: 3px solid #00B4CC;
+    border-right: none;
+    padding: 5px;
+    height: 20px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+  }
+  
+  .searchTerm:focus{
+    color: #00B4CC;
+  }
+  
+  .searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  /*Resize the wrap to see the search bar change!*/
+  .wrap{
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
