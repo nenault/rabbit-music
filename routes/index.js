@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Rabbeat Music", javascripts: ["search"] });
+  res.render("index", { title: "Rabbeat Music", javascripts: ["search"], nonavbar: true });
 });
 
 router.get("/search", function (req, res, next) {
