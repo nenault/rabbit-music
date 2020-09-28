@@ -5,13 +5,12 @@
 <label for="playlist-name" class="">Nom de la playlist</label>
 <input id="playlist-name" name="name" type="playlist-name" class="" value="{{playlist.name}}" required>
 
+<input type="hidden" id="songs" name="songs" value="{{arrayId}}">
 
 {{#each songs}}
-<input type="hidden" id="songs" name="songs" value="{{this}}">
-
 <div class="song">
-    <p>{{this.name}} de {{#each song.artists}}{{name}}, {{/each}}</p>
-    <audio controls src="{{song.preview_url}}">
+    <p>{{this.name}} de {{#each this.artists}}{{name}}, {{/each}}</p>
+    <audio controls src="{{this.preview_url}}">
         Your browser does not support the
         <code>audio</code> element.
     </audio>

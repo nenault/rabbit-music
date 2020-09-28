@@ -119,11 +119,16 @@ router.get("/edit-playlist/:id", async (req, res, next) => {
           },
         })
           .then((response) => {
-            // console.log(response.data);
-            //const responseData = response.data
+            const arrayId = [];
+
+            response.data.tracks.forEach((song) => {
+              arrayId.push(song.id);
+            });
+
             res.render("connected/edit-playlist", {
               playlist: dbResult,
-              songs: response.data,
+              songs: response.data.tracks,
+              arrayId: arrayId,
             });
           })
           .catch((err) => {
