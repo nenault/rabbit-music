@@ -22,24 +22,64 @@ async function submitHandler(event) {
       for (let i = 0; i < song.artists.length; i++) {
         artArr.push(song.artists[i].name);
       }
-     // console.log(artArr);
+      // console.log(artArr);
       const artistsList = artArr.join(", ");
-      getSearchField.innerHTML += `<div class="song">
+      getSearchField.innerHTML += `<div class="song" song-id="${song.id}">
       <p>${song.name} de ${artistsList}</p>
       <audio controls src="${song.preview_url}">
           Your browser does not support the
           <code>audio</code> element.
       </audio>
+      <form action="" method="post" class="add-to-playlist">
+      <input type="submit" value="Add to playlist">
+      </form>
   </div>`;
     } else {
-      getSearchField.innerHTML += `<div class="song">
+      getSearchField.innerHTML += `<div class="song" song-id="${song.id}">
       <p>${song.name} de ${song.artists[0].name}</p>
       <audio controls src="${song.preview_url}">
           Your browser does not support the
           <code>audio</code> element.
       </audio>
+      <form action="" method="post" class="add-to-playlist">
+      <input type="submit" value="Add to playlist">
+      </form>
   </div>`;
     }
+  });
+  const getAdd = document.querySelectorAll(".add-to-playlist");
+
+  getAdd.forEach((btn) => {
+    btn.addEventListener("submit", submitAdd);
+  });
+}
+
+async function submitAdd(event) {
+  event.preventDefault();
+  let getHidden = document.querySelector("#songs");
+  let getArrofSongs = getHidden.value;
+  let idAddSong = event.target.parentNode.getAttribute("song-id");
+  //console.log(getArrofSongs);
+
+  let newArrofSongs = getArrofSongs + "," + idAddSong;
+  //console.log(newArrofSongs);
+
+  const sendNewArr = await songAPI.getSongList(newArrofSongs);
+
+  const getSongsList = document.querySelector(".songs-list");
+  getSongsList.innerHTML = "";
+
+  sendNewArr.data.forEach((song) => {
+    getSongsList.innerHTML += `<div class="song" song-id="${song.id}">
+    <p>${song.name} de ${song.artists[0].name}</p>
+    <audio controls src="${song.preview_url}">
+        Your browser does not support the
+        <code>audio</code> element.
+    </audio>
+    <form action="" method="post" class="add-to-playlist">
+    <input type="submit" value="Add to playlist">
+    </form>
+</div>`;
   });
 }
 

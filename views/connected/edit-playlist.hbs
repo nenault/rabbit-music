@@ -1,33 +1,34 @@
 <h1>Editer une playlist</h1>
 
- <form method="post" action="/playlists/edit-playlist/{{playlist._id}}" id="form-playlist">
+<form method="post" action="/playlists/edit-playlist/{{playlist._id}}" id="form-playlist">
 
-<label for="playlist-name" class="">Nom de la playlist</label>
-<input id="playlist-name" name="name" type="playlist-name" class="" value="{{playlist.name}}" required>
+    <label for="playlist-name" class="">Nom de la playlist</label>
+    <input id="playlist-name" name="name" type="playlist-name" class="" value="{{playlist.name}}" required>
 
-<input type="hidden" id="songs" name="songs" value="{{arrayId}}">
+    <input type="hidden" id="songs" name="songs" value="{{arrayId}}">
 
-{{#each songs}}
-<div class="song">
-    <p>{{this.name}} de {{#each this.artists}}{{name}}, {{/each}}</p>
-    <audio controls src="{{this.preview_url}}">
-        Your browser does not support the
-        <code>audio</code> element.
-    </audio>
-</div>
-{{/each}}
+    <div class="songs-list">
+        {{#each songs}}
+        <div class="song">
+            <p>{{this.name}} de {{#each this.artists}}{{name}}, {{/each}}</p>
+            <audio controls src="{{this.preview_url}}">
+                Your browser does not support the
+                <code>audio</code> element.
+            </audio>
+        </div>
+        {{/each}}
+    </div>
 
- <button class="">Edit playlist</button>
- </form>
-
- <div class="search">
-<form id="searchBox" class="searchBox" action="" method="get" >
-    <label for="song"></label>
-    <input type="search" name="song-search" class="searchBar" placeholder="Search song..." id="song-search" required>
-    <button type="submit" value ="Search" class="searchBtn"><i class="fa fa-search"></i></button>
+    <button class="">Edit playlist</button>
 </form>
+
+<div class="search">
+    <form id="searchBox" class="searchBox" action="" method="get">
+        <label for="song"></label>
+        <input type="search" name="song-search" class="searchBar" placeholder="Search song..." id="song-search"
+            required>
+        <button type="submit" value="Search" class="searchBtn"><i class="fa fa-search"></i></button>
+    </form>
 </div>
 
 <div id="search-result"></div>
-
-  

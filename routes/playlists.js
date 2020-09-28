@@ -4,7 +4,6 @@ const axios = require("axios");
 const Playlist = require("../models/playlist");
 
 router.get("/init-playlist/:id", function (req, res, next) {
- 
   axios({
     url: "https://accounts.spotify.com/api/token",
     method: "post",
@@ -128,7 +127,7 @@ router.get("/edit-playlist/:id", async (req, res, next) => {
               playlist: dbResult,
               songs: response.data.tracks,
               arrayId: arrayId,
-              javascripts: ["playlists"]
+              javascripts: ["playlists"],
             });
           })
           .catch((err) => {
@@ -154,7 +153,6 @@ router.post("/edit-playlist/:id", async (req, res, next) => {
   }
 });
 
-
 router.get("/edit-playlist/:id/:query", function (req, res, next) {
   axios({
     url: "https://accounts.spotify.com/api/token",
@@ -168,7 +166,7 @@ router.get("/edit-playlist/:id/:query", function (req, res, next) {
     },
     auth: {
       username: process.env.CLIENT_ID,
-      password: process.env.CLIENT_SECRET,  
+      password: process.env.CLIENT_SECRET,
     },
   })
     .then(function (response) {
@@ -188,7 +186,51 @@ router.get("/edit-playlist/:id/:query", function (req, res, next) {
         },
       })
         .then((response) => {
-         res.send(response.data.tracks.items);
+          res.send(response.data.tracks.items);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch(function (error) {});
+});
+
+router.get("/edit-playlist/:id/add-song/:ids", function (req, res, next) {
+  //console.log(req.params.ids);
+  axios({
+    url: "https://accounts.spotify.com/api/token",
+    method: "post",
+    params: {
+      grant_type: "client_credentials",
+    },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    auth: {
+      username: process.env.CLIENT_ID,
+      password: process.env.CLIENT_SECRET,
+    },
+  })
+    .then(function (response) {
+      const accessToken = response.data.access_token;
+      const refreshToken = response.data.refresh_token;
+
+      axios({
+        url: `https://api.spotify.com/v1/tracks/?ids=${req.params.ids}`,
+
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: {
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        },
+      })
+        .then((response) => {
+          // console.log(response.data.tracks);
+          res.send(response.data.tracks);
         })
         .catch((err) => {
           console.log(err);
