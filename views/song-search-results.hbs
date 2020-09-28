@@ -1,11 +1,13 @@
 <h1>Song result</h1>
 
 {{#each results}}
-<p>{{this.name}} de {{#each this.artists}}{{this.name}}, {{/each}}</p>
-<audio controls src="{{this.preview_url}}">
-    Your browser does not support the
-    <code>audio</code> element.
-</audio>
-<a class="see-all-btn" href="/">See all playlists</a>
-<a class="add-btn" href="/">Add to a playlist</a>
+<div class="song" song-id="{{this.id}}">
+    <p>{{this.name}} de {{#each this.artists}}{{this.name}}, {{/each}}</p>
+    <audio controls src="{{this.preview_url}}">
+        Your browser does not support the
+        <code>audio</code> element.
+    </audio>
+    <a class="see-all-btn" href="/">See all playlists</a>
+    <a class="add-btn" href="playlists/create-playlist/{{this.id}}">Add to a playlist</a>
+</div>
 {{/each}}
