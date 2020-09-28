@@ -69,8 +69,6 @@ router.get("/manage-playlist", async function (req, res, next) {
 });
 
 router.get("/delete-playlist/:id", async function (req, res, next) {
- 
- console.log("nico");
   const playlistId = req.params.id;
   Playlist.findByIdAndDelete(playlistId)
     .then((dbResult) => {
@@ -79,6 +77,81 @@ router.get("/delete-playlist/:id", async function (req, res, next) {
     .catch((error) => {
       next(error);
     });
+});
+
+router.get("/edit-playlist/:id", async (req, res, next) => {
+  try {
+    const playlistId = req.params.id;
+    const dbResult = await Playlist.findById(playlistId);
+
+    let ids = dbResult.songs.join(",");
+
+    axios({
+      url: "https://accounts.spotify.com/api/token",
+      method: "post",
+      params: {
+        grant_type: "client_credentials",
+      },
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      auth: {
+        username: process.env.CLIENT_ID,
+        password: process.env.CLIENT_SECRET,
+      },
+    })
+      .then(function (response) {
+        // console.log("response.data.access_token");
+        const accessToken = response.data.access_token;
+        const refreshToken = response.data.refresh_token;
+
+        axios({
+          url: `https://api.spotify.com/v1/tracks/?ids=${ids}`,
+
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          params: {
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          },
+        })
+          .then((response) => {
+            const arrayId = [];
+
+            response.data.tracks.forEach((song) => {
+              arrayId.push(song.id);
+            });
+
+            res.render("connected/edit-playlist", {
+              playlist: dbResult,
+              songs: response.data.tracks,
+              arrayId: arrayId,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch(function (error) {});
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/edit-playlist/:id", async (req, res, next) => {
+  try {
+    const playlistId = req.params.id;
+    const updatedPlaylist = await Playlist.findByIdAndUpdate(
+      playlistId,
+      req.body
+    );
+    res.redirect("/playlists/manage-playlist");
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

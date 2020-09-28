@@ -1,1 +1,22 @@
 <h1>Editer une playlist</h1>
+
+ <form method="post" action="/playlists/create-playlist" id="form-playlist">
+
+<label for="playlist-name" class="">Nom de la playlist</label>
+<input id="playlist-name" name="name" type="playlist-name" class="" value="{{playlist.name}}" required>
+
+<input type="hidden" id="songs" name="songs" value="{{arrayId}}">
+
+{{#each songs}}
+<div class="song">
+    <p>{{this.name}} de {{#each this.artists}}{{name}}, {{/each}}</p>
+    <audio controls src="{{this.preview_url}}">
+        Your browser does not support the
+        <code>audio</code> element.
+    </audio>
+</div>
+{{/each}}
+
+ <button class="">Edit playlist</button>
+
+  </form>
