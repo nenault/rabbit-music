@@ -38,6 +38,13 @@ app.use(
   })
   );
   
+  app.use(flash());
+  
+  app.use(function (req, res, next) {
+    res.locals.error_message = req.flash("error");
+    res.locals.success_message = req.flash("success");
+    next();
+  });
   
   app.use(function (req, res, next) {
     if (req.session.currentUser) {

@@ -13,20 +13,19 @@ router.get("/signin", async (req, res, next) => {
 router.post("/signin", async (req, res, next) => {
 
     const { email, password } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const foundUser = await User.findOne({ email: email });
     // console.log(foundUser);
     if (!foundUser) {
 
-      req.flash("error_msg", "Invalid credentials");
-      res.redirect("/auth/signin");
+      res.render("signin" ,{ error_msg: "Invalide email/password combination" });
 
     } else {
       const isSamePassword = bcrypt.compareSync(password, foundUser.password);
       if (!isSamePassword) {
 
-        req.flash("error_msg", "Invalid credentials");
-        res.redirect("/auth/signin");
+        
+        res.render("signin" ,{ error_msg: "Invalide email/password combination" });
 
       } else {
 
