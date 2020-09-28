@@ -3,11 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 
 router.get("/", function (req, res, next) {
-<<<<<<< HEAD
-  res.render("index", { title: "Rabbeat music", javascripts: ["search"] });
-=======
   res.render("index", { title: "Rabbeat Music", javascripts: ["search"] });
->>>>>>> b11f20744fe2a7ec0dc6cae24a6724b3c0584742
 });
 
 router.get("/search", function (req, res, next) {
