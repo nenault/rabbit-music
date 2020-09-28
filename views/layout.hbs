@@ -12,10 +12,15 @@
 </head>
 
 <body>
-  
+
   {{#unless nonavbar}}
   {{> navbar }}
   {{/unless}}
+
+  {{#if navbarhome}}
+  {{> navbarHome }}
+  {{/if}}
+
   {{{body}}}
 
 
