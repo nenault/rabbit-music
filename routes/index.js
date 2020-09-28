@@ -23,7 +23,7 @@ router.get("/search", function (req, res, next) {
     },
   })
     .then(function (response) {
-      console.log("response.data.access_token");
+     // console.log("response.data.access_token");
       const accessToken = response.data.access_token;
       const refreshToken = response.data.refresh_token;
 
@@ -40,9 +40,10 @@ router.get("/search", function (req, res, next) {
         },
       })
         .then((response) => {
-          //console.log(response.data.tracks.items);
+      //  console.log(response.data.tracks.items);
           res.render("song-search-results", {
             results: response.data.tracks.items,
+            javascripts: ["playlists"]
           });
         })
         .catch((err) => {

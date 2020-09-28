@@ -4,6 +4,7 @@
 <head>
   <title>{{title}}</title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   {{#each javascripts}}
   <script type="module" src="/javascripts/{{this}}.js" type="module"></script>
   {{/each}}
@@ -11,6 +12,7 @@
 </head>
 
 <body>
+  {{> navbar }}
   {{{body}}}
 </body>
 

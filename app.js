@@ -13,6 +13,7 @@ const axios = require("axios");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const playlistsRouter = require("./routes/playlists");
+const navbarRouter = require("./routes/navbar");
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/playlists", playlistsRouter);
+app.use("/navbar", navbarRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
