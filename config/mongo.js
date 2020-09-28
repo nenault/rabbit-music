@@ -4,6 +4,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
+
 });
 
 mongoose.connection.on("connected", () =>

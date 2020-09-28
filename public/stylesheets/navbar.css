@@ -1,3 +1,7 @@
-* {
+#navbar {
     box-sizing: content-box;
+    margin: 0;
+    display: flex;
+    background-color: black;
 }
+
