@@ -1,8 +1,6 @@
 
-<section class="">
-  <header class="">
-    <h1 class="">Signin</h1>
-    <p class="">Ouaich</p>
+
+
   </header>
 {{!-- 
   {{#if error_msg}}
@@ -10,19 +8,30 @@
     {{error_msg}}
   </div>
   {{/if}} --}}
+<section id="LoginTable">
+
+<div class="signInImg"><img src="/images/headphones.png" alt="sign in logo" class="headphn"></div>
 
   <form method="post" action="/auth/signin" id="form_user">
-    <div class="">
-      <label for="email" class="">Email</label>
-      <input id="email" name="email" type="email" class="" placeholder="ouaich.coucou@gmail.com"
-        required value="toto@toto.com">
-    </div>
-    <div class="">
-      <label for="password" class="label-ref label">Password</label>
-      <input id="password" name="password" type="password" class="" placeholder="••••••" required
-        value="1234">
-    </div>
-    <button class="">Log in !</button>
+    <ul class="liste">
+
+      <li>
+      <label for="email"></label>
+      <input id="email" name="email" type="email" class="inputField" placeholder="Email"
+        required value="">
+    </li>
+
+    <li>
+      <label for="password" class="label-ref label"></label>
+      <input id="password" name="password" type="password" class="inputField" placeholder="Password" required
+        value="">
+   </li>
+   <li>
+    <input type="submit" name="Log in" alt="Log in" value="Log in" id="btn">
+    <p class="signup">Don't have an account yet ? <a href="/auth/signup" class="signuplink">Sign Up</a></p> 
+    </li>
+    </ul>
+
   </form>
-  <p class="">Don't have an account yet ? <a href="/auth/signup" class="">Sign Up</a></p>
+</div>
 </section>
