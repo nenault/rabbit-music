@@ -1,1 +1,9 @@
 <h1>Editer ses propres playlists</h1>
+
+{{#each playlists}}
+<div class="playlist">
+    <p>{{this.name}}</p>
+    <a class="see-all-btn" href="/">Edit</a>
+    <a class="add-btn" href="/playlists/delete-playlist/{{this._id}}">Delete</a>
+</div>
+{{/each}}

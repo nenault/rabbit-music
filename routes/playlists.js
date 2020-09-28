@@ -39,11 +39,10 @@ router.get("/init-playlist/:id", function (req, res, next) {
         },
       })
         .then((response) => {
-        // console.log(response.data);
+          // console.log(response.data);
           res.render("connected/create-playlist", {
             song: response.data,
           });
-
         })
         .catch((err) => {
           console.log(err);
@@ -52,11 +51,34 @@ router.get("/init-playlist/:id", function (req, res, next) {
     .catch(function (error) {});
 });
 
-
 router.post("/create-playlist", async function (req, res, next) {
-    const newPlaylist = req.body;
-   // console.log(newPlaylist);
-   const dbResult = await Playlist.create(newPlaylist);
+  const newPlaylist = req.body;
+  // console.log(newPlaylist);
+  const createPlaylist = await Playlist.create(newPlaylist);
+
+  res.redirect("/playlists/manage-playlist");
+});
+
+router.get("/manage-playlist", async function (req, res, next) {
+  // const newPlaylist = req.body;
+  // console.log(newPlaylist);
+  const displayPlaylist = await Playlist.find();
+  res.render("connected/edit-user-playlists", {
+    playlists: displayPlaylist,
+  });
+});
+
+router.get("/delete-playlist/:id", async function (req, res, next) {
+ 
+ console.log("nico");
+  const playlistId = req.params.id;
+  Playlist.findByIdAndDelete(playlistId)
+    .then((dbResult) => {
+      res.redirect("/playlists/manage-playlist");
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
 module.exports = router;
