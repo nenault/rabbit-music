@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Rabbit musicc",  javascripts: ["search"]});
+  res.render("index", { title: "Rabbit musicc", javascripts: ["search"] });
 });
 
 router.get("/search", function (req, res, next) {
@@ -29,7 +29,7 @@ router.get("/search", function (req, res, next) {
 
       axios({
         url: `https://api.spotify.com/v1/search?q=${req.query.song}&type=track,artist`,
-        
+
         headers: {
           Accept: "application/json",
           "Content-Type": "application/x-www-form-urlencoded",
@@ -40,8 +40,10 @@ router.get("/search", function (req, res, next) {
         },
       })
         .then((response) => {
-          console.log(response.data.tracks.items);
-          res.render("song-search-results", { results: response.data.tracks.items});
+          //console.log(response.data.tracks.items);
+          res.render("song-search-results", {
+            results: response.data.tracks.items,
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -49,6 +51,5 @@ router.get("/search", function (req, res, next) {
     })
     .catch(function (error) {});
 });
-
 
 module.exports = router;
