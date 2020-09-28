@@ -10,21 +10,36 @@ async function submitHandler(event) {
   event.preventDefault();
   const getInput = document.querySelector("#song-search");
 
-  //console.log(getInput.value);
-
   const sendValue = await songAPI.getSong(getInput.value);
 
-  //console.log(sendValue);
-
   getSearchField.innerHTML = "";
+
   sendValue.data.forEach((song) => {
-    getSearchField.innerHTML += `<div class="song">
-      <p>${song.name} de {{#each this.artists}}{{name}}, {{/each}}</p>
+    let getArtistsArr = song.artists;
+
+    if (song.artists.length > 1) {
+      const artArr = [];
+      for (let i = 0; i < song.artists.length; i++) {
+        artArr.push(song.artists[i].name);
+      }
+     // console.log(artArr);
+      const artistsList = artArr.join(", ");
+      getSearchField.innerHTML += `<div class="song">
+      <p>${song.name} de ${artistsList}</p>
       <audio controls src="${song.preview_url}">
           Your browser does not support the
           <code>audio</code> element.
       </audio>
   </div>`;
+    } else {
+      getSearchField.innerHTML += `<div class="song">
+      <p>${song.name} de ${song.artists[0].name}</p>
+      <audio controls src="${song.preview_url}">
+          Your browser does not support the
+          <code>audio</code> element.
+      </audio>
+  </div>`;
+    }
   });
 }
 
