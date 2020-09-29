@@ -6,8 +6,6 @@ const songAPI = new APIHandler();
 
 const getDeleteBtn = document.querySelectorAll(".delete-song");
 
-
-console.log(getDeleteBtn);
 getDeleteBtn.forEach((btn) => {
   btn.addEventListener("click", submitDelete);
 });
@@ -101,14 +99,59 @@ async function submitAdd(event) {
         Your browser does not support the
         <code>audio</code> element.
     </audio>
-    <form action="" method="post" class="add-to-playlist">
-    <input type="submit" value="Add to playlist">
-    </form>
+    <p song-id="${song.id}" class="delete-song">Delete</p>
 </div>`;
+    const getDeleteBtn = document.querySelectorAll(".delete-song");
+    getDeleteBtn.forEach((btn) => {
+      btn.addEventListener("click", submitDelete);
+    });
   });
 }
 
 async function submitDelete(event) {
-  event.preventDefault();
-  console.log(this);
+  let idDeleteSong = event.target.getAttribute("song-id");
+  //console.log(idDeleteSong);
+
+  let getHidden = document.querySelector("#songs");
+  let getArrofSongs = getHidden.value;
+
+  let newArrayofSongs = getArrofSongs.split(",");
+  // let newArrofSongs = getArrofSongs - idDeleteSong;
+
+  //console.log(newArrayofSongs);
+
+  let filteredArray = newArrayofSongs.filter(function (value, index, arr) {
+    return value != idDeleteSong;
+  });
+
+  //console.log(filteredArray);
+
+  const newListofSongs = filteredArray.join(",");
+ // console.log(newListofSongs);
+
+  const sendNewArrofSongs = await songAPI.getSongList(newListofSongs);
+
+  const getSongsList = document.querySelector(".songs-list");
+  getSongsList.innerHTML = "";
+
+  getHidden.value = newListofSongs;
+
+  sendNewArrofSongs.data.forEach((song) => {
+    let getPreview = "";
+    if (song.preview_url != null) {
+      getPreview = song.preview_url;
+    }
+    getSongsList.innerHTML += `<div class="song" song-id="${song.id}">
+    <p>${song.name} de ${song.artists[0].name}</p>
+    <audio controls src="${getPreview}">
+        Your browser does not support the
+        <code>audio</code> element.
+    </audio>
+    <p song-id="${song.id}" class="delete-song">Delete</p>
+</div>`;
+    const getDeleteBtn = document.querySelectorAll(".delete-song");
+    getDeleteBtn.forEach((btn) => {
+      btn.addEventListener("click", submitDelete);
+    });
+  });
 }
