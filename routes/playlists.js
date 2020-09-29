@@ -57,17 +57,17 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (
     .catch(function (error) {});
 });
 
-
 router.get("/see-all-playlists/:id", async function (req, res, next) {
   try {
     const songId = req.params.id;
-    
-    const relatedPlaylist = await Playlist.find({ songs: { $in: [songId] } }).populate("user");
-  
+
+    const relatedPlaylist = await Playlist.find({
+      songs: { $in: [songId] },
+    }).populate("user");
+
     console.log(relatedPlaylist);
-  
-    
-    relatedPlaylist.forEach(playlist => {
+
+    relatedPlaylist.forEach((playlist) => {
       ids = playlist.songs.join(",");
 
       axios({
@@ -117,27 +117,17 @@ router.get("/see-all-playlists/:id", async function (req, res, next) {
                 arrayId: arrayId,
                 javascripts: ["playlists"],
               });
-
             })
             .catch((err) => {
               console.log(err);
             });
         })
         .catch(function (error) {});
-  })}
-catch(error) {
-  next(error)
-}
-
-
+    });
+  } catch (error) {
+    next(error);
+  }
 });
-
-
-
-
-
-
-
 
 router.post("/create-playlist", protectPrivateRoute, async function (
   req,
@@ -145,7 +135,15 @@ router.post("/create-playlist", protectPrivateRoute, async function (
   next
 ) {
   const newPlaylist = req.body;
-  const createPlaylist = await Playlist.create(newPlaylist);
+
+  let songListToarray = req.body.songs.split(",");
+
+  const createPlaylist = await Playlist.create({
+    name: req.body.name,
+    user: req.body.user,
+    songs: songListToarray,
+    copies: req.body.copies,
+  });
 
   res.redirect("/playlists/manage-playlist");
 });
@@ -253,10 +251,13 @@ router.post(
   async (req, res, next) => {
     try {
       const playlistId = req.params.id;
-      const updatedPlaylist = await Playlist.findByIdAndUpdate(
-        playlistId,
-        req.body
-      );
+
+      let songListToarray = req.body.songs.split(",");
+
+      const updatedPlaylist = await Playlist.findByIdAndUpdate(playlistId, {
+        name: req.body.name,
+        songs: songListToarray
+      });
       res.redirect("/playlists/manage-playlist");
     } catch (error) {
       next(error);
