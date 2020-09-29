@@ -2,12 +2,12 @@
 
     <div class="logolink">
         <a href="/">
-            <img src="/images/title-hori.svg" alt="Title" id="title"> 
+            <img src="/images/title-hori.svg" alt="Title" id="title">
             <img src="/images/logo-rabbeat.svg" alt="Logo" id="rabbit">
         </a>
     </div>
 
-{{!-- 
+    {{!-- 
     <div class="search-box">
         
     </div> --}}
@@ -15,25 +15,26 @@
 
     <div class="signinlink">
 
-       <form class="search-form" action="/search" method="get">
+        <form class="search-form" action="/search" method="get">
             <label for="song"></label>
             <input type="search" name="song" class="search-bar" required placeholder="Search song...">
-            <button type="submit" value ="Search" class="search-btn"><i class="fa fa-search"></i></button>
+            <button type="submit" value="Search" class="search-btn"><i class="fa fa-search"></i></button>
         </form>
 
-    
+
         {{#unless isLoggedIn}}
-        <a  href="/auth/signin" id="nav_login" class="logbtn">Log in</a>
+        <a href="/auth/signin" id="nav_login" class="logbtn">Log in</a>
         {{/unless}}
         {{#if isLoggedIn}}
-        <a  href="/auth/logout" id="nav_logout" class="logbtn">Log out</a>
+        <a href="/playlists/manage-playlist" id="nav_logout" class="logbtn">My playlists</a>
+        <a href="/auth/logout" id="nav_logout" class="logbtn">Log out</a>
         {{/if}}
         <img src="/images/headphones.png" alt="headphones" class="headphones">
     </div>
 
 
 
-  {{!-- <a  href="/auth/logout" id="nav_logout" class="button-ternary flexed-item nav-end-item">
+    {{!-- <a  href="/auth/logout" id="nav_logout" class="button-ternary flexed-item nav-end-item">
           <span class="btn-text">Log out</span>
         </a> --}}
 

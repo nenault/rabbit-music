@@ -9,7 +9,7 @@ const getDeleteBtn = document.querySelectorAll(".delete-song");
 
 console.log(getDeleteBtn);
 getDeleteBtn.forEach((btn) => {
-  btn.addEventListener("submit", submitDelete);
+  btn.addEventListener("click", submitDelete);
 });
 
 const getSearchField = document.querySelector("#search-result");
