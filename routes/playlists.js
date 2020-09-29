@@ -43,7 +43,8 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (req, res, next) 
           // console.log(response.data);
           res.render("connected/create-playlist", {
             song: response.data,
-            userId: req.session.currentUser._id
+            userId: req.session.currentUser._id,
+            javascripts: ["playlists"]
           });
         })
         .catch((err) => {
@@ -130,7 +131,7 @@ router.get("/edit-playlist/:id", protectPrivateRoute, async (req, res, next) => 
               playlist: dbResult,
               songs: response.data.tracks,
               arrayId: arrayId,
-              javascripts: ["playlists"],
+              javascripts: ["playlists"]
             });
           })
           .catch((err) => {
@@ -156,7 +157,7 @@ router.post("/edit-playlist/:id", protectPrivateRoute,  async (req, res, next) =
   }
 });
 
-router.get("/edit-playlist/:id/:query", protectPrivateRoute, function (req, res, next) {
+router.get("/:state/:id/:query", protectPrivateRoute, function (req, res, next) {
   axios({
     url: "https://accounts.spotify.com/api/token",
     method: "post",
@@ -198,7 +199,7 @@ router.get("/edit-playlist/:id/:query", protectPrivateRoute, function (req, res,
     .catch(function (error) {});
 });
 
-router.get("/edit-playlist/:id/add-song/:ids", protectPrivateRoute, function (req, res, next) {
+router.get("/:state/:id/add-song/:ids", protectPrivateRoute, function (req, res, next) {
   //console.log(req.params.ids);
   axios({
     url: "https://accounts.spotify.com/api/token",
