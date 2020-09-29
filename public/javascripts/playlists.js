@@ -10,7 +10,7 @@ getDeleteBtn.forEach((btn) => {
   btn.addEventListener("click", submitDelete);
 });
 
-const getSearchField = document.querySelector("#search-result");
+const getSearchField = document.querySelector("#songcontainer");
 const getForm = document.getElementById("searchBox");
 getForm.addEventListener("submit", submitHandler);
 
@@ -25,7 +25,7 @@ async function submitHandler(event) {
   sendValue.data.forEach((song) => {
     let getArtistsArr = song.artists;
 
-    //console.log(song.album.images);
+    console.log(song.album.images);
 
     if (song.artists.length > 1) {
       const artArr = [];
@@ -56,7 +56,7 @@ async function submitHandler(event) {
       if (song.preview_url != null) {
         getPreview = song.preview_url;
       }
-      getSearchField.innerHTML += `<div id="songcontainer"><div class="song" song-id="${song.id}">
+      getSearchField.innerHTML += `<div class="song" song-id="${song.id}">
       <img src="${song.album.images[1].url}" alt="" class="imgsong">
       <h2>${song.name}</h2> <h3>${song.artists[0].name}</h3>
       <audio class="player" controls src="${getPreview}">
@@ -66,7 +66,7 @@ async function submitHandler(event) {
       <form action="" method="post" class="add-to-playlist">
       <input type="submit" value="Add to playlist">
       </form>
-  </div></div>`;
+  </div>`;
     }
   });
   const getAdd = document.querySelectorAll(".add-to-playlist");
