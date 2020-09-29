@@ -1,9 +1,10 @@
-<h1>Song result</h1>
+<h1>Song results </h1>
 
+<div id="container">
 {{#each results}}
 <div class="song" song-id="{{this.id}}">
     <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="">
-    <p>{{this.name}} de {{#each this.artists}}{{this.name}}, {{/each}}</p>
+    <p>{{this.name}}</p> <h2>{{#each this.artists}}{{this.name}}, {{/each}}</h2>
     <audio controls src="{{this.preview_url}}">
         Your browser does not support the
         <code>audio</code> element.
@@ -12,3 +13,5 @@
     <a class="add-btn" href="playlists/init-playlist/{{this.id}}">Add to a playlist</a>
 </div>
 {{/each}}
+
+</div>
