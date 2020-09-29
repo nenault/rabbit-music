@@ -103,7 +103,6 @@ footer img {
 .signin {
   display: flex;
   justify-content: flex-end;
-  border: white solid 1px;
   width : 8%;
 }
 

@@ -2,24 +2,16 @@
     
      {{#unless isLoggedIn}}
      <div class="signin">
-     <img src="/images/headphones.png" alt="headphones" class="headphones">
-        <a  href="/auth/signin" id="nav_login" class="button-ternary flexed-item nav-end-item">
-          <span class="btn-text">Log in</span>
-        </a>
+        <a  href="/auth/signin" id="nav_login">Log in</a>
      </div>
         {{/unless}}
         {{#if isLoggedIn}}
 
     <div class="signin">
-      
-        <img src="/images/headphones.png" alt="headphones" class="headphones">
-        <a  href="/auth/logout" id="nav_logout" class="button-ternary flexed-item nav-end-item">
-          <span class="btn-text">Log out</span>
-        </a>
-
+        <a  href="/auth/logout" id="nav_logout">Log out</a>
     </div>
         {{/if}}
-
+ <img src="/images/headphones.png" alt="headphones" class="headphones">
 
 
 </section>
