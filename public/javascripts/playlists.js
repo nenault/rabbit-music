@@ -25,6 +25,8 @@ async function submitHandler(event) {
   sendValue.data.forEach((song) => {
     let getArtistsArr = song.artists;
 
+    //console.log(song.album.images);
+
     if (song.artists.length > 1) {
       const artArr = [];
       for (let i = 0; i < song.artists.length; i++) {
@@ -36,10 +38,12 @@ async function submitHandler(event) {
         getPreview = song.preview_url;
       }
       const artistsList = artArr.join(", ");
+
       getSearchField.innerHTML += `
       <div class="song" song-id="${song.id}">
-      <p>${song.name} de ${artistsList}</p>
-      <audio controls src="${getPreview}">
+      <img src="${song.album.images[1].url}" alt="" class="imgsong">
+      <h2>${song.name}</h2> <h3>${artistsList}</h3>
+      <audio class="player" controls src="${getPreview}">
           Your browser does not support the
           <code>audio</code> element.
       </audio>
@@ -52,16 +56,17 @@ async function submitHandler(event) {
       if (song.preview_url != null) {
         getPreview = song.preview_url;
       }
-      getSearchField.innerHTML += `<div class="song" song-id="${song.id}">
-      <p>${song.name} de ${song.artists[0].name}</p>
-      <audio controls src="${getPreview}">
+      getSearchField.innerHTML += `<div id="songcontainer"><div class="song" song-id="${song.id}">
+      <img src="${song.album.images[1].url}" alt="" class="imgsong">
+      <h2>${song.name}</h2> <h3>${song.artists[0].name}</h3>
+      <audio class="player" controls src="${getPreview}">
           Your browser does not support the
           <code>audio</code> element.
       </audio>
       <form action="" method="post" class="add-to-playlist">
       <input type="submit" value="Add to playlist">
       </form>
-  </div>`;
+  </div></div>`;
     }
   });
   const getAdd = document.querySelectorAll(".add-to-playlist");
@@ -124,10 +129,9 @@ async function submitDelete(event) {
     return value != idDeleteSong;
   });
 
-  //console.log(filteredArray);
-
+  //console.log(filteredArray.length);
   const newListofSongs = filteredArray.join(",");
- // console.log(newListofSongs);
+  //console.log(newListofSongs);
 
   const sendNewArrofSongs = await songAPI.getSongList(newListofSongs);
 
@@ -135,6 +139,7 @@ async function submitDelete(event) {
   getSongsList.innerHTML = "";
 
   getHidden.value = newListofSongs;
+  //console.log(sendNewArrofSongs.data.length);
 
   sendNewArrofSongs.data.forEach((song) => {
     let getPreview = "";
