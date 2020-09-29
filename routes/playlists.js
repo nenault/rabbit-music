@@ -57,14 +57,16 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (
     .catch(function (error) {});
 });
 
+
 router.get("/see-all-playlists/:id", protectPrivateRoute, async function (
   req,
   res,
   next
 ) {
-  const newPlaylist = req.body;
-  const createPlaylist = await Playlist.find();
-
+  const songId = req.params.id;
+  //console.log(songId);
+  const createPlaylist = await Playlist.find({"songs" : {$in: [songId]}});
+console.log(createPlaylist);
 //  res.redirect("/playlists/manage-playlist");
 });
 
