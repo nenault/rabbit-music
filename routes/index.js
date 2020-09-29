@@ -40,7 +40,7 @@ router.get("/search", function (req, res, next) {
         },
       })
         .then((response) => {
-      console.log(response.data.tracks.items[0].album.images);
+      // console.log(response.data.tracks.items[0].album.images);
           res.render("song-search-results", {
             results: response.data.tracks.items,
           });

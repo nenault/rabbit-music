@@ -54,7 +54,6 @@ router.post("/signin", async (req, res, next) => {
       if (foundUser) {
         res.render("signup", { error_msg: "Email already taken" });
       } else {
-        console.log("hellloooo");
         const hashedPassword = bcrypt.hashSync(newUser.password, salt);
         newUser.password = hashedPassword;
         const user = await User.create(newUser);
