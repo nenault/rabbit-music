@@ -1,26 +1,68 @@
 
+.titlesr {
+    font-family: "Monoton", cursive;
+    font-weight: lighter;
+    font-size: 3em;
+    word-spacing: 0.5em;
+    text-align: center;
+    margin : 30px 0 50px 0;
+}
+
 #songcontainer {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(20vw, 20vw));
-    /* grid-template-columns: 10% 10% 10%; */
-    /* grid-template-rows: auto auto auto;
-    column-gap: 60px;
-    row-gap: 40px;
-    justify-content: center;
-    align-items: center;  */
-    
-} 
-
-
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20vw, 20vw));
+  grid-template-rows: auto auto auto;
+  column-gap: 60px;
+  row-gap: 60px;
+}
 
 .song {
-    border : white solid 1px;
-    display: flex;
-    flex-direction: column;
-
+  border: rgb(237, 200, 50) solid 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: rgba(146, 143, 143, 0.2);
 }
 
 .imgsong {
-    display: block;
-    width: 90%;
+  display: block;
+  width: 70%;
+  margin: 30px;
+}
+
+.song h3 {
+  color: rgb(237, 200, 50);
+  font-weight: lighter;
+  font-size: 1em;
+  margin-bottom: 15px;
+}
+
+.song h2 {
+  margin-bottom: 15px;
+  font-size: 1.2em;
+}
+
+.player {
+  width: 80%;
+  margin : 10px 0 30px 0;
+}
+
+.playerbtn {
+  border: 1px solid rgba(237, 200, 50, 1);
+  background: black;
+  font-size: 0.8em;
+  color: white;
+  border-radius: 30px;
+  padding: 10px 10px;
+  cursor: pointer;
+  text-decoration: none;
+  margin : 0 10px 0 10px;
+
+}
+
+.playerlinks {
+    display: flex;
+    margin-bottom : 30px;
 }
