@@ -6,6 +6,8 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  position: relative;
+  min-height: 100vh;
 }
 
 a {
@@ -23,7 +25,7 @@ a {
  */
 
 #foot {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 42%;
   font-family: monospace;
