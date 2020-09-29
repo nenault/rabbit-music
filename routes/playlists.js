@@ -64,8 +64,10 @@ router.get("/manage-playlist", protectPrivateRoute, async function (req, res, ne
   // const newPlaylist = req.body;
   // console.log(newPlaylist);
   const displayPlaylist = await Playlist.find();
+  console.log(req.session.currentUser._id);
   res.render("connected/edit-user-playlists", {
     playlists: displayPlaylist,
+    userId: req.session.currentUser._id
   });
 });
 
