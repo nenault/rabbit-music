@@ -10,6 +10,7 @@
 
     <div class="songs-list">
         <div class="song">
+            <img src="{{#imageDisplay song.album.images}}{{/imageDisplay}}" alt="">
             <p>{{song.name}} de {{#each song.artists}}{{name}}, {{/each}}</p>
             <audio class="" controls src="{{song.preview_url}}">
                 Your browser does not support the
