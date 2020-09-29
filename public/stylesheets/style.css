@@ -9,14 +9,23 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
-.footer img {
+/* .footer img {
   width: 15%;
   height: auto;
   display: block;
   position: fixed;
   bottom: 0;
   left: 42%;
+}
+ */
+
+#foot {
+  position: fixed;
+  bottom: 0;
+  left: 42%;
+  font-family: monospace;
+  white-space: pre;
 }
