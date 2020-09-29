@@ -23,10 +23,14 @@ async function submitHandler(event) {
         artArr.push(song.artists[i].name);
       }
       // console.log(artArr);
+      let getPreview = "";
+      if (song.preview_url != null){
+        getPreview = song.preview_url;
+      }
       const artistsList = artArr.join(", ");
       getSearchField.innerHTML += `<div class="song" song-id="${song.id}">
       <p>${song.name} de ${artistsList}</p>
-      <audio controls src="${song.preview_url}">
+      <audio controls src="${getPreview}">
           Your browser does not support the
           <code>audio</code> element.
       </audio>
@@ -35,9 +39,13 @@ async function submitHandler(event) {
       </form>
   </div>`;
     } else {
+      let getPreview = "";
+      if (song.preview_url != null){
+        getPreview = song.preview_url;
+      }
       getSearchField.innerHTML += `<div class="song" song-id="${song.id}">
       <p>${song.name} de ${song.artists[0].name}</p>
-      <audio controls src="${song.preview_url}">
+      <audio controls src="${getPreview}">
           Your browser does not support the
           <code>audio</code> element.
       </audio>
@@ -72,10 +80,13 @@ async function submitAdd(event) {
   getHidden.value = newArrofSongs;
 
   sendNewArr.data.forEach((song) => {
-    
+    let getPreview = "";
+    if (song.preview_url != null){
+      getPreview = song.preview_url;
+    }
     getSongsList.innerHTML += `<div class="song" song-id="${song.id}">
     <p>${song.name} de ${song.artists[0].name}</p>
-    <audio controls src="${song.preview_url}">
+    <audio controls src="${getPreview}">
         Your browser does not support the
         <code>audio</code> element.
     </audio>
