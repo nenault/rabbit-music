@@ -26,6 +26,7 @@ body {
   padding-left : 17%;
   color: rgb(237, 200, 50);
   position : relative;
+  margin-top : 20px;
 
 }
 
@@ -92,7 +93,7 @@ body {
   height: auto;
 }
 
-.signin a {
+.signin a, .signin2 a {
   text-decoration: none;
   color: white;
   font-size: 1.4em;
@@ -105,6 +106,12 @@ body {
   justify-content: flex-end;
   width : 8%;
 }
+
+.signin2 {
+
+}
+
+
 
 /* boxes */
 
@@ -160,3 +167,4 @@ body {
 .overlay:hover > * {
   transform: translateY(0);
 }
+
