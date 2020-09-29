@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const Playlist = require("../models/playlist");
+const protectPrivateRoute = require("../middlewares/protectPrivateRoute");
 
-router.get("/init-playlist/:id", function (req, res, next) {
+
+router.get("/init-playlist/:id", protectPrivateRoute, function (req, res, next) {
   axios({
     url: "https://accounts.spotify.com/api/token",
     method: "post",
@@ -49,7 +51,7 @@ router.get("/init-playlist/:id", function (req, res, next) {
     .catch(function (error) {});
 });
 
-router.post("/create-playlist", async function (req, res, next) {
+router.post("/create-playlist", protectPrivateRoute, async function (req, res, next) {
   const newPlaylist = req.body;
   // console.log(newPlaylist);
   const createPlaylist = await Playlist.create(newPlaylist);
@@ -57,7 +59,7 @@ router.post("/create-playlist", async function (req, res, next) {
   res.redirect("/playlists/manage-playlist");
 });
 
-router.get("/manage-playlist", async function (req, res, next) {
+router.get("/manage-playlist", protectPrivateRoute, async function (req, res, next) {
   // const newPlaylist = req.body;
   // console.log(newPlaylist);
   const displayPlaylist = await Playlist.find();
@@ -66,7 +68,7 @@ router.get("/manage-playlist", async function (req, res, next) {
   });
 });
 
-router.get("/delete-playlist/:id", async function (req, res, next) {
+router.get("/delete-playlist/:id", protectPrivateRoute, async function (req, res, next) {
   const playlistId = req.params.id;
   Playlist.findByIdAndDelete(playlistId)
     .then((dbResult) => {
@@ -77,7 +79,7 @@ router.get("/delete-playlist/:id", async function (req, res, next) {
     });
 });
 
-router.get("/edit-playlist/:id", async (req, res, next) => {
+router.get("/edit-playlist/:id", protectPrivateRoute, async (req, res, next) => {
   try {
     const playlistId = req.params.id;
     const dbResult = await Playlist.findById(playlistId);
@@ -140,7 +142,7 @@ router.get("/edit-playlist/:id", async (req, res, next) => {
   }
 });
 
-router.post("/edit-playlist/:id", async (req, res, next) => {
+router.post("/edit-playlist/:id", protectPrivateRoute,  async (req, res, next) => {
   try {
     const playlistId = req.params.id;
     const updatedPlaylist = await Playlist.findByIdAndUpdate(
@@ -153,7 +155,7 @@ router.post("/edit-playlist/:id", async (req, res, next) => {
   }
 });
 
-router.get("/edit-playlist/:id/:query", function (req, res, next) {
+router.get("/edit-playlist/:id/:query", protectPrivateRoute, function (req, res, next) {
   axios({
     url: "https://accounts.spotify.com/api/token",
     method: "post",
@@ -195,7 +197,7 @@ router.get("/edit-playlist/:id/:query", function (req, res, next) {
     .catch(function (error) {});
 });
 
-router.get("/edit-playlist/:id/add-song/:ids", function (req, res, next) {
+router.get("/edit-playlist/:id/add-song/:ids", protectPrivateRoute, function (req, res, next) {
   //console.log(req.params.ids);
   axios({
     url: "https://accounts.spotify.com/api/token",
