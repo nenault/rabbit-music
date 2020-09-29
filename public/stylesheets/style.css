@@ -11,3 +11,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+.footer img {
+  width: 15%;
+  height: auto;
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 42%;
+}

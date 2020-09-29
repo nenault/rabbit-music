@@ -26,6 +26,7 @@ body {
   padding-left : 17%;
   color: rgb(237, 200, 50);
   position : relative;
+  margin-top : 20px;
 
 }
 
@@ -42,6 +43,14 @@ body {
   width: 1%;
   height: auto;
   margin: 0px 15px 20px 0px;
+}
+
+.tagline {
+    font-size: 1.4em;
+    font-weight: lighter;
+    font-style: oblique;
+    text-align: center;
+    margin : 30px 0 40px 0;
 }
 
 .searchBox {
@@ -78,21 +87,21 @@ body {
   margin-top: 30px;
 }
 
-.footer img {
+/* .footer img {
   width: 15%;
   height: auto;
   display: block;
   position: fixed;
   bottom: 0;
   left: 42%;
-}
+} */
 
 .headphones {
   width: 25px;
   height: auto;
 }
 
-.signin a {
+.signin a, .signin2 a {
   text-decoration: none;
   color: white;
   font-size: 1.4em;
@@ -105,6 +114,8 @@ body {
   justify-content: flex-end;
   width : 8%;
 }
+
+
 
 /* boxes */
 
@@ -160,3 +171,4 @@ body {
 .overlay:hover > * {
   transform: translateY(0);
 }
+
