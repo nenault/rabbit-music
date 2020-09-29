@@ -28,7 +28,8 @@ async function submitHandler(event) {
         getPreview = song.preview_url;
       }
       const artistsList = artArr.join(", ");
-      getSearchField.innerHTML += `<div class="song" song-id="${song.id}">
+      getSearchField.innerHTML += `
+      <div class="song" song-id="${song.id}">
       <p>${song.name} de ${artistsList}</p>
       <audio controls src="${getPreview}">
           Your browser does not support the

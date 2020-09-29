@@ -1,6 +1,7 @@
 @import "navbar.css";
 @import "signin.css";
 @import "partialnav.css";
+@import "song-search-results.css";
 
 body {
   padding: 50px;
