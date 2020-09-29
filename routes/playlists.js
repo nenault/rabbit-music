@@ -57,6 +57,17 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (
     .catch(function (error) {});
 });
 
+router.get("/see-all-playlists/:id", protectPrivateRoute, async function (
+  req,
+  res,
+  next
+) {
+  const newPlaylist = req.body;
+  const createPlaylist = await Playlist.find();
+
+//  res.redirect("/playlists/manage-playlist");
+});
+
 router.post("/create-playlist", protectPrivateRoute, async function (
   req,
   res,
@@ -277,12 +288,12 @@ router.get("/:state/:id/add-song/:ids", protectPrivateRoute, function (
 });
 
 router.get("/all-playlists", async function (req, res, next) {
-try {
-  const allPlaylists = await Playlist.find();
-  res.render("public-user-playlists", {allPlaylists})
-} catch (error) {
-  next(error)
-}
+  try {
+    const allPlaylists = await Playlist.find();
+    res.render("public-user-playlists", { allPlaylists });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
