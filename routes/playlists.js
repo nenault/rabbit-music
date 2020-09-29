@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const Playlist = require("../models/playlist");
+//const User = require("../models/user");
 const protectPrivateRoute = require("../middlewares/protectPrivateRoute");
 
 
@@ -42,6 +43,7 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (req, res, next) 
           // console.log(response.data);
           res.render("connected/create-playlist", {
             song: response.data,
+            userId: req.session.currentUser._id
           });
         })
         .catch((err) => {
@@ -53,7 +55,6 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (req, res, next) 
 
 router.post("/create-playlist", protectPrivateRoute, async function (req, res, next) {
   const newPlaylist = req.body;
-  // console.log(newPlaylist);
   const createPlaylist = await Playlist.create(newPlaylist);
 
   res.redirect("/playlists/manage-playlist");
