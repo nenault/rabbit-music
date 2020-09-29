@@ -25,6 +25,17 @@ body {
   text-align: center;
   margin-top: 25px;
   color: rgb(237, 200, 50);
+  position : relative;
+
+}
+
+.rabbit {
+    width : 8%;
+    height : auto;
+    display: inline-block;
+    position : absolute;
+    bottom : 5px;
+ 
 }
 
 .dot {
