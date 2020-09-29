@@ -69,7 +69,10 @@ async function submitAdd(event) {
   const getSongsList = document.querySelector(".songs-list");
   getSongsList.innerHTML = "";
 
+  getHidden.value = newArrofSongs;
+
   sendNewArr.data.forEach((song) => {
+    
     getSongsList.innerHTML += `<div class="song" song-id="${song.id}">
     <p>${song.name} de ${song.artists[0].name}</p>
     <audio controls src="${song.preview_url}">
