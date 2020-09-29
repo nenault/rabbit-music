@@ -28,7 +28,7 @@ router.get("/search", function (req, res, next) {
       const refreshToken = response.data.refresh_token;
 
       axios({
-        url: `https://api.spotify.com/v1/search?q=${req.query.song}&type=track,artist&limit=6`,
+        url: `https://api.spotify.com/v1/search?q=${req.query.song}&type=track,artist`,
 
         headers: {
           Accept: "application/json",

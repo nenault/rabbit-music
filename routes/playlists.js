@@ -58,7 +58,7 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (
 });
 
 
-router.get("/see-all-playlists/:id", protectPrivateRoute, async function (
+router.get("/see-all-playlists/:id", async function (
   req,
   res,
   next
