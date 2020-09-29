@@ -5,12 +5,11 @@
     <label for="playlist-name" class="">Nom de la playlist</label>
     <input id="playlist-name" name="name" type="playlist-name" class="" placeholder="Ma super playlist" required>
 
-
     <input type="hidden" id="songs" name="songs" value="{{song.id}}">
     <input type="hidden" id="user" name="user" value="{{userId}}">
 
     <div class="songs-list">
-        <div class="song" song-id="{{song.id}}">
+        <div class="song">
             <p>{{song.name}} de {{#each song.artists}}{{name}}, {{/each}}</p>
             <audio class="" controls src="{{song.preview_url}}">
                 Your browser does not support the

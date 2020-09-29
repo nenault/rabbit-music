@@ -202,7 +202,7 @@ router.get("/:state/:id/:query", protectPrivateRoute, function (req, res, next) 
 });
 
 router.get("/:state/:id/add-song/:ids", protectPrivateRoute, function (req, res, next) {
-  //console.log(req.params.ids);
+  console.log(req.params.ids);
   axios({
     url: "https://accounts.spotify.com/api/token",
     method: "post",
