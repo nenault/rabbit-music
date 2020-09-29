@@ -45,6 +45,14 @@ body {
   margin: 0px 15px 20px 0px;
 }
 
+.tagline {
+    font-size: 1.4em;
+    font-weight: lighter;
+    font-style: oblique;
+    text-align: center;
+    margin : 30px 0 40px 0;
+}
+
 .searchBox {
   width: 50%;
   display: flex;
@@ -79,14 +87,14 @@ body {
   margin-top: 30px;
 }
 
-.footer img {
+/* .footer img {
   width: 15%;
   height: auto;
   display: block;
   position: fixed;
   bottom: 0;
   left: 42%;
-}
+} */
 
 .headphones {
   width: 25px;
@@ -105,10 +113,6 @@ body {
   display: flex;
   justify-content: flex-end;
   width : 8%;
-}
-
-.signin2 {
-
 }
 
 
