@@ -35,7 +35,7 @@ app.use(
       ttl: 24 * 60 * 60, // 1 day
     }),
     saveUninitialized: true,
-    resave: true,
+    resave: false,
   })
   );
   
