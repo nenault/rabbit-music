@@ -2,6 +2,16 @@ import APIHandler from "./APIHandler.js";
 
 const songAPI = new APIHandler();
 
+//("playlists/edit-playlist/{{playlist._id}}/delete-song");
+
+const getDeleteBtn = document.querySelectorAll(".delete-song");
+
+
+console.log(getDeleteBtn);
+getDeleteBtn.forEach((btn) => {
+  btn.addEventListener("submit", submitDelete);
+});
+
 const getSearchField = document.querySelector("#search-result");
 const getForm = document.getElementById("searchBox");
 getForm.addEventListener("submit", submitHandler);
@@ -24,7 +34,7 @@ async function submitHandler(event) {
       }
       // console.log(artArr);
       let getPreview = "";
-      if (song.preview_url != null){
+      if (song.preview_url != null) {
         getPreview = song.preview_url;
       }
       const artistsList = artArr.join(", ");
@@ -41,7 +51,7 @@ async function submitHandler(event) {
   </div>`;
     } else {
       let getPreview = "";
-      if (song.preview_url != null){
+      if (song.preview_url != null) {
         getPreview = song.preview_url;
       }
       getSearchField.innerHTML += `<div class="song" song-id="${song.id}">
@@ -82,7 +92,7 @@ async function submitAdd(event) {
 
   sendNewArr.data.forEach((song) => {
     let getPreview = "";
-    if (song.preview_url != null){
+    if (song.preview_url != null) {
       getPreview = song.preview_url;
     }
     getSongsList.innerHTML += `<div class="song" song-id="${song.id}">
@@ -98,18 +108,7 @@ async function submitAdd(event) {
   });
 }
 
-/* const getBtn = document.querySelectorAll(".add-btn");
-
-getBtn.forEach(btn => {
-   btn.addEventListener("click", clickHandler)
-});
-
-async function clickHandler (event) {
-
-    let songID = event.target.parentNode.getAttribute("song-id");
-   // console.log(event.target.parentNode.getAttribute("song_id"));
-
-   const sendSong = await songAPI.getSongID(songID);
-
-//   console.log(sendSong);
-} */
+async function submitDelete(event) {
+  event.preventDefault();
+  console.log(this);
+}

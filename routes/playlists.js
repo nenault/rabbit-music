@@ -58,6 +58,7 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (
 });
 
 
+
 router.get("/see-all-playlists/:id", async function (
   req,
   res,
@@ -65,9 +66,8 @@ router.get("/see-all-playlists/:id", async function (
 ) {
   const songId = req.params.id;
   //console.log(songId);
-  const createPlaylist = await Playlist.find({"songs" : {$in: [songId]}});
-console.log(createPlaylist);
-//  res.redirect("/playlists/manage-playlist");
+  const relatedPlaylist = await Playlist.find({ songs: { $in: [songId] } });
+  res.render("related-playlists", {playlists : relatedPlaylist});
 });
 
 router.post("/create-playlist", protectPrivateRoute, async function (
@@ -296,6 +296,21 @@ router.get("/all-playlists", async function (req, res, next) {
   } catch (error) {
     next(error);
   }
+});
+
+router.get("/edit-playlist/:id/delete-song", protectPrivateRoute, async function (
+  req,
+  res,
+  next
+) {
+  const playlistId = req.params.id;
+  Playlist.findByIdAndDelete(playlistId)
+    .then((dbResult) => {
+      res.redirect("/playlists/manage-playlist");
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
 module.exports = router;
