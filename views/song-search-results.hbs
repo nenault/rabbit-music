@@ -2,6 +2,7 @@
 
 {{#each results}}
 <div class="song" song-id="{{this.id}}">
+    <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="">
     <p>{{this.name}} de {{#each this.artists}}{{this.name}}, {{/each}}</p>
     <audio controls src="{{this.preview_url}}">
         Your browser does not support the
