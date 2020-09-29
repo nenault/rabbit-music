@@ -1,9 +1,25 @@
 <section id="navbar">
     
+     {{#unless isLoggedIn}}
+     <div class="signin">
+     <img src="/images/headphones.png" alt="headphones" class="headphones">
+        <a  href="/auth/signin" id="nav_login" class="button-ternary flexed-item nav-end-item">
+          <span class="btn-text">Log in</span>
+        </a>
+     </div>
+        {{/unless}}
+        {{#if isLoggedIn}}
+
     <div class="signin">
-        <a href="/auth/signin">Log in</a>
+      
         <img src="/images/headphones.png" alt="headphones" class="headphones">
+        <a  href="/auth/logout" id="nav_logout" class="button-ternary flexed-item nav-end-item">
+          <span class="btn-text">Log out</span>
+        </a>
+
     </div>
+        {{/if}}
+
 
 
 </section>

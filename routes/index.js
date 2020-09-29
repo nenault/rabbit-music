@@ -43,7 +43,6 @@ router.get("/search", function (req, res, next) {
       //  console.log(response.data.tracks.items);
           res.render("song-search-results", {
             results: response.data.tracks.items,
-            javascripts: ["playlists"]
           });
         })
         .catch((err) => {

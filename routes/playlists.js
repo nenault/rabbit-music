@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const Playlist = require("../models/playlist");
+//const User = require("../models/user");
 const protectPrivateRoute = require("../middlewares/protectPrivateRoute");
 
 
@@ -42,6 +43,8 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (req, res, next) 
           // console.log(response.data);
           res.render("connected/create-playlist", {
             song: response.data,
+            userId: req.session.currentUser._id,
+            javascripts: ["playlists"]
           });
         })
         .catch((err) => {
@@ -53,7 +56,6 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (req, res, next) 
 
 router.post("/create-playlist", protectPrivateRoute, async function (req, res, next) {
   const newPlaylist = req.body;
-  // console.log(newPlaylist);
   const createPlaylist = await Playlist.create(newPlaylist);
 
   res.redirect("/playlists/manage-playlist");
@@ -63,8 +65,10 @@ router.get("/manage-playlist", protectPrivateRoute, async function (req, res, ne
   // const newPlaylist = req.body;
   // console.log(newPlaylist);
   const displayPlaylist = await Playlist.find();
+  console.log(req.session.currentUser._id);
   res.render("connected/edit-user-playlists", {
     playlists: displayPlaylist,
+    userId: req.session.currentUser._id
   });
 });
 
@@ -129,7 +133,7 @@ router.get("/edit-playlist/:id", protectPrivateRoute, async (req, res, next) => 
               playlist: dbResult,
               songs: response.data.tracks,
               arrayId: arrayId,
-              javascripts: ["playlists"],
+              javascripts: ["playlists"]
             });
           })
           .catch((err) => {
@@ -155,7 +159,7 @@ router.post("/edit-playlist/:id", protectPrivateRoute,  async (req, res, next) =
   }
 });
 
-router.get("/edit-playlist/:id/:query", protectPrivateRoute, function (req, res, next) {
+router.get("/:state/:id/:query", protectPrivateRoute, function (req, res, next) {
   axios({
     url: "https://accounts.spotify.com/api/token",
     method: "post",
@@ -197,7 +201,7 @@ router.get("/edit-playlist/:id/:query", protectPrivateRoute, function (req, res,
     .catch(function (error) {});
 });
 
-router.get("/edit-playlist/:id/add-song/:ids", protectPrivateRoute, function (req, res, next) {
+router.get("/:state/:id/add-song/:ids", protectPrivateRoute, function (req, res, next) {
   //console.log(req.params.ids);
   axios({
     url: "https://accounts.spotify.com/api/token",
