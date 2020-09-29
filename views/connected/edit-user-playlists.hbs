@@ -1,9 +1,11 @@
 <h1>Editer ses propres playlists</h1>
 
 {{#each playlists}}
+{{#isSameId  this.user ../userId }}
 <div class="playlist">
     <p>{{this.name}}</p>
     <a class="edit-btn" href="/playlists/edit-playlist/{{this._id}}">Edit</a>
     <a class="add-btn" href="/playlists/delete-playlist/{{this._id}}">Delete</a>
 </div>
+{{/isSameId}}
 {{/each}}

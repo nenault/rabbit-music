@@ -1,5 +1,6 @@
 require("dotenv").config();
 require("./config/mongo");
+require("./helpers/hbs-helpers");
 
 
 const flash = require("connect-flash");
@@ -39,7 +40,7 @@ app.use(
   );
   
   app.use(flash());
-  
+
   app.use(function (req, res, next) {
     res.locals.error_message = req.flash("error");
     res.locals.success_message = req.flash("success");
