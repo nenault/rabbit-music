@@ -22,8 +22,8 @@ body {
   font-family: "Monoton", cursive;
   font-size: 6em;
   font-weight: lighter;
-  text-align: center;
-  margin-top: 25px;
+  width : 100%;
+  padding-left : 17%;
   color: rgb(237, 200, 50);
   position : relative;
 
@@ -34,7 +34,7 @@ body {
     height : auto;
     display: inline-block;
     position : absolute;
-    bottom : 5px;
+    bottom : 6px;
  
 }
 
@@ -88,21 +88,23 @@ footer img {
 }
 
 .headphones {
-  width: 10%;
+  width: 25px;
   height: auto;
 }
 
 .signin a {
   text-decoration: none;
   color: white;
-  font-size: 1.6em;
-  margin-left: 20px;
+  font-size: 1.4em;
+  margin-right: 20px;
   padding-top: 5px;
 }
 
 .signin {
   display: flex;
   justify-content: flex-end;
+  border: white solid 1px;
+  width : 8%;
 }
 
 /* boxes */

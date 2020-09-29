@@ -1,0 +1,60 @@
+#title {
+ width : 80%;
+}
+
+#rabbit {
+ width : 10%;
+}
+.logolink a, .signinlink a {
+    text-decoration: none;
+}
+
+.logolink {
+    align-self: flex-start;
+}
+
+#navbarpart {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+   
+}
+ 
+.signinlink {
+    display : flex;
+}
+
+.search-bar {
+    width: 100%;
+    border: 3px solid white;
+    border-right: none;
+    padding: 12px;
+    height: 16px;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+    font-size: 1em;
+  }
+  
+  .search-btn {
+    width: 40px;
+    height: auto;
+    border: 2px solid white;
+    background: black;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .search-form {
+    display: flex;
+  }
+
+
+  .logbtn {
+    color: white;
+    font-size: 1.4em;
+    margin: 0 20px 0 50px;
+    padding-top: 5px;
+  }

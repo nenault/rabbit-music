@@ -1,5 +1,6 @@
 @import "navbar.css";
 @import "signin.css";
+@import "partialnav.css";
 
 body {
   padding: 50px;
