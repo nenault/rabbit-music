@@ -1,8 +1,3 @@
-<section class="">
-  <header class="">
-    <h1 class="">Sign up</h1>
-    <p class="">Welcome</p>
-  </header>
 
    {{#if error_msg}}
   <div class="flash-msg error">
@@ -10,21 +5,37 @@
   </div>
   {{/if}}
 
-  <form method="post" action="/auth/signup" id="form_user">
-    <div class="">
-      <label for="username" class="">User name</label>
-      <input id="username" name="username" type="text" class="" placeholder="Toto" required value="toto">
-    </div>
-    <div class="">
-      <label for="email" class="">Email</label>
-      <input id="email" name="email" type="email" class="" placeholder="ouaich.coucou@gmail.com" required
-        value="toto@toto.com">
-    </div>
-    <div class="">
-      <label for="password" class="">Password</label>
-      <input id="password" name="password" type="password" class="" placeholder="••••••" required value="1234">
-    </div>
-    <button class="">Create Account</button>
+<section id="LoginTable">
+
+<div class="signInImg"><img src="/images/record.png" alt="sign in logo" class="headphn"></div>
+
+  <form method="post" action="/auth/signin" id="form_user">
+
+    <ul class="liste">
+
+      <li>
+      <label for="username"></label>
+      <input id="username" name="username" type="text" class="inputField" placeholder="Username" required value="">
+      </li>
+
+      <li>
+      <label for="email"></label>
+      <input id="email" name="email" type="email" class="inputField" placeholder="Email" required
+        value="">
+      </li>
+
+    <li>
+      <label for="password"></label>
+      <input id="password" name="password" type="password" class="inputField" placeholder="Password" required value="">
+    </li>
+
+    <li>
+    <input type="submit" name="Sign up" alt="sign up" value="Sign up" id="btn">
+    <p class="signupbis">Already have an account ? <a href="/auth/signin" class="signuplink">Sign In</a></p>
+    </li>
+    </ul>
+
   </form>
-  <p class="">Already have an account ? <a href="/auth/signin" class="">Sign In</a></p>
+  
+</div>
 </section>

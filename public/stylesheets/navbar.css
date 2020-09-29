@@ -75,10 +75,10 @@ body {
 .search {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
-footer img {
+.footer img {
   width: 15%;
   height: auto;
   display: block;
@@ -111,7 +111,7 @@ footer img {
 .display {
   width: 60vw;
   height: 40vh;
-  margin: 60px auto;
+  margin: 80px auto;
   display: flex;
   justify-content: space-between;
   

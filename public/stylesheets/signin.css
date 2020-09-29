@@ -3,8 +3,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90vh;
-  height: 45vh;
+  width: 100vh;
+  height: 50vh;
   text-align: center;
   display: flex;
   color: white;
@@ -64,10 +64,13 @@
   } 
 
   .signup {
-     margin-top: 80px;
+     margin-top: 23%;
   }
 
   .signuplink {
       color : rgba(237, 200, 50);
+  }
 
+  .signupbis {
+      margin-top : 10%;
   }
