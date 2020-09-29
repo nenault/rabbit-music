@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const Playlist = require("../models/playlist");
-//const User = require("../models/user");
+const User = require("../models/user");
 const protectPrivateRoute = require("../middlewares/protectPrivateRoute");
 
 router.get("/init-playlist/:id", protectPrivateRoute, function (
@@ -58,17 +58,86 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (
 });
 
 
+router.get("/see-all-playlists/:id", async function (req, res, next) {
+  try {
+    const songId = req.params.id;
+    
+    const relatedPlaylist = await Playlist.find({ songs: { $in: [songId] } }).populate("user");
+  
+    console.log(relatedPlaylist);
+  
+    
+    relatedPlaylist.forEach(playlist => {
+      ids = playlist.songs.join(",");
 
-router.get("/see-all-playlists/:id", async function (
-  req,
-  res,
-  next
-) {
-  const songId = req.params.id;
-  //console.log(songId);
-  const relatedPlaylist = await Playlist.find({ songs: { $in: [songId] } });
-  res.render("related-playlists", {playlists : relatedPlaylist});
+      axios({
+        url: "https://accounts.spotify.com/api/token",
+        method: "post",
+        params: {
+          grant_type: "client_credentials",
+        },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        auth: {
+          username: process.env.CLIENT_ID,
+          password: process.env.CLIENT_SECRET,
+        },
+      })
+        .then(function (response) {
+          // console.log("response.data.access_token");
+          const accessToken = response.data.access_token;
+          const refreshToken = response.data.refresh_token;
+
+          axios({
+            url: `https://api.spotify.com/v1/tracks/?ids=${ids}`,
+
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            params: {
+              access_token: accessToken,
+              refresh_token: refreshToken,
+            },
+          })
+            .then((response) => {
+              const arrayId = [];
+
+              response.data.tracks.forEach((song) => {
+                arrayId.push(song.id);
+              });
+
+              // console.log(response.data.tracks);
+
+              res.render("related-playlists", {
+                playlist: playlist,
+                songs: response.data.tracks,
+                arrayId: arrayId,
+                javascripts: ["playlists"],
+              });
+
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch(function (error) {});
+  })}
+catch(error) {
+  next(error)
+}
+
+
 });
+
+
+
+
+
+
+
 
 router.post("/create-playlist", protectPrivateRoute, async function (
   req,
@@ -89,7 +158,7 @@ router.get("/manage-playlist", protectPrivateRoute, async function (
   // const newPlaylist = req.body;
   // console.log(newPlaylist);
   const displayPlaylist = await Playlist.find();
-  console.log(req.session.currentUser._id);
+  // console.log(req.session.currentUser._id);
   res.render("connected/edit-user-playlists", {
     playlists: displayPlaylist,
     userId: req.session.currentUser._id,
@@ -246,7 +315,7 @@ router.get("/:state/:id/add-song/:ids", protectPrivateRoute, function (
   res,
   next
 ) {
-  console.log(req.params.ids);
+  // console.log(req.params.ids);
   axios({
     url: "https://accounts.spotify.com/api/token",
     method: "post",
@@ -298,19 +367,19 @@ router.get("/all-playlists", async function (req, res, next) {
   }
 });
 
-router.get("/edit-playlist/:id/delete-song", protectPrivateRoute, async function (
-  req,
-  res,
-  next
-) {
-  const playlistId = req.params.id;
-  Playlist.findByIdAndDelete(playlistId)
-    .then((dbResult) => {
-      res.redirect("/playlists/manage-playlist");
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
+router.get(
+  "/edit-playlist/:id/delete-song",
+  protectPrivateRoute,
+  async function (req, res, next) {
+    const playlistId = req.params.id;
+    Playlist.findByIdAndDelete(playlistId)
+      .then((dbResult) => {
+        res.redirect("/playlists/manage-playlist");
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
 
 module.exports = router;

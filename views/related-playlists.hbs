@@ -1,8 +1,15 @@
 <h1>Related playlist</h1>
 
-{{#each playlists}}
+{{#each playlist}}
 <div class="playlist">
     <p>{{this.name}}</p>
-    <p>{{this.image}}</p>
+
+
 </div>
+{{/each}}
+
+{{#each songs}}
+
+<p>{{this.name}}</p>
+
 {{/each}}
