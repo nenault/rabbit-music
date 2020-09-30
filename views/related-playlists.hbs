@@ -1,12 +1,22 @@
 <h1>Related playlist</h1>
 
 {{#each relatedPlaylist}}
-<div class="playlist">
-    <p>{{this.name}}</p>
+<div>
+<p>
+{{this.name}}:
+</p>
+<ul>
+{{#each this.details}}
+<li>
+<img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="imgsong">
+{{this.name}}
 
+</li>
+
+{{/each}}
+</ul>
 
 </div>
+
+
 {{/each}}
-    <p>
-        {{arrayId}}
-    </p>

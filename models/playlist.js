@@ -5,6 +5,7 @@ const playlistSchema = new Schema({
   name: String,
   user: { type: Schema.Types.ObjectId, ref: "User" },
   songs: [String],
+  details: [{}],
   copies: {
     type: String,
     default: 0,
