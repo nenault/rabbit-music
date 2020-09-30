@@ -1,0 +1,24 @@
+.edit-btn, .delete-btn {
+    text-decoration: none;
+    border: 1px solid rgba(237, 200, 50, 1);
+    background: black;
+    font-size: 0.8em;
+    color: white;
+    border-radius: 30px;
+    /* padding: 10px 10px; */
+    cursor: pointer;
+}
+
+.btns {
+    margin : 20px;
+}
+
+.edit-btn {
+ padding : 10px 30px;
+ margin-right : 5px;
+}
+
+.delete-btn {
+    padding : 10px 23px; 
+    margin-left: 5px;
+}
