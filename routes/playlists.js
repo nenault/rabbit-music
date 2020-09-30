@@ -373,4 +373,68 @@ router.get(
   }
 );
 
+router.get("/:id", async function (req, res, next) {
+  try {
+    const playlistId = req.params.id;
+    const playlist = await Playlist.findById(playlistId).populate("user");
+    //console.log(playlist.songs);
+    const ids = playlist.songs;
+
+    axios({
+      url: "https://accounts.spotify.com/api/token",
+      method: "post",
+      params: {
+        grant_type: "client_credentials",
+      },
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      auth: {
+        username: process.env.CLIENT_ID,
+        password: process.env.CLIENT_SECRET,
+      },
+    })
+      .then(function (response) {
+        const accessToken = response.data.access_token;
+        const refreshToken = response.data.refresh_token;
+
+        axios({
+          url: `https://api.spotify.com/v1/tracks/?ids=${ids}`,
+
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          params: {
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          },
+        })
+          .then((response) => {
+           // console.log(response.data.tracks);
+            // res.send(response.data.tracks);
+            res.render("playlist", { playlist: playlist , songs:response.data.tracks});
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch(function (error) {});
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+router.get("/copy-playlist/:id", protectPrivateRoute, async function (req, res, next) {
+  try {
+    console.log("nico");
+   // res.render("public-user-playlists", { allPlaylists });
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 module.exports = router;

@@ -1,0 +1,20 @@
+.delete-song {
+    border: 1px solid rgba(237, 200, 50, 1);
+    background: black;
+    font-size: 0.8em;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.save-btn {
+    border: 1px solid rgba(237, 200, 50, 1);
+    background: black;
+    font-size: 0.8em;
+    color: white;
+    border-radius: 30px;
+    padding : 10px 30px;
+    margin-top : 30px;
+}

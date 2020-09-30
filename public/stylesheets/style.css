@@ -2,6 +2,10 @@
 @import "signin.css";
 @import "partialnav.css";
 @import "song-search-results.css";
+@import "create-playlist.css";
+@import "edit-user-playlists.css";
+@import "edit-playlist.css";
+@import "playlist.css";
 
 body {
   padding: 50px;
