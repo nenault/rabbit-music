@@ -60,20 +60,20 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (
 router.get("/see-all-playlists/:id", async function (req, res, next) {
   try {
     const songId = req.params.id;
-    
+
     const relatedPlaylist = await Playlist.find({
       songs: { $in: [songId] },
     }).populate("user");
-    
+
     console.log(relatedPlaylist);
-    
+
     const objSongs = {};
     const idSongs = {};
     relatedPlaylist.forEach((playlist, i) => {
-      const keyName = "playlist" + (i+1);
+      const keyName = "playlist" + (i + 1);
       objSongs[keyName] = [];
-      
-      idSongs[keyName] = []
+
+      idSongs[keyName] = [];
       ids = playlist.songs.join(",");
       idSongs[keyName].push(ids);
       console.log(idSongs);
@@ -100,7 +100,7 @@ router.get("/see-all-playlists/:id", async function (req, res, next) {
 
           axios({
             url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
-            
+
             headers: {
               Accept: "application/json",
               "Content-Type": "application/x-www-form-urlencoded",
@@ -110,7 +110,7 @@ router.get("/see-all-playlists/:id", async function (req, res, next) {
               refresh_token: refreshToken,
             },
           })
-          .then((response) => {
+            .then((response) => {
               console.log(response.data.tracks);
               response.data.tracks.forEach((song) => {
                 objSongs[keyName].push(song);
@@ -120,21 +120,21 @@ router.get("/see-all-playlists/:id", async function (req, res, next) {
             .catch((err) => {
               console.log(err);
             });
-                          res.render("related-playlists", {
-                            relatedPlaylist,
-                            objSongs
-                          });
-          })
-          .catch(function (error) {});
-        });
-            // res.render("related-playlists", {
-            //   arrayId : arrayId,
-            //   relatedPlaylist,
-            //   javascripts: ["playlists"],
-            // });
-      } catch (error) {
-        next(error);
-      }
+          res.render("related-playlists", {
+            relatedPlaylist,
+            objSongs,
+          });
+        })
+        .catch(function (error) {});
+    });
+    // res.render("related-playlists", {
+    //   arrayId : arrayId,
+    //   relatedPlaylist,
+    //   javascripts: ["playlists"],
+    // });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.post("/create-playlist", protectPrivateRoute, async function (
@@ -264,7 +264,7 @@ router.post(
 
       const updatedPlaylist = await Playlist.findByIdAndUpdate(playlistId, {
         name: req.body.name,
-        songs: songListToarray
+        songs: songListToarray,
       });
       res.redirect("/playlists/manage-playlist");
     } catch (error) {
@@ -390,5 +390,15 @@ router.get(
       });
   }
 );
+
+router.get("/:id", async function (req, res, next) {
+  try {
+    const playlistId = req.params.id;
+    const playlist = await Playlist.findById(playlistId).populate("user");;
+    res.render("playlist", { playlist: playlist });
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
