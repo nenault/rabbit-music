@@ -1,25 +1,29 @@
-<h1>Related playlist</h1>
+<h1 class="titlesr">Related playlist</h1>
 
+<div class="play-liste">
 {{#each relatedPlaylist}}
-<div>
-<p>
-{{this.name}}:
-</p>
-<ul>
+
+<div class="playslist-indiv">
+<p>{{this.name}}: </p>
+
+<ul class="song-lists">
+
 {{#each this.details}}
 <li>
-<img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="imgsong">
+<img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="img-list-playlist">
 {{#each this.album.artists}}
 {{this.name}}
 {{/each}}
-{{this.name}}
-
+{{this.name}} 
 </li>
-
 {{/each}}
 </ul>
 
 </div>
-
-
 {{/each}}
+
+</div>
+
+
+
+

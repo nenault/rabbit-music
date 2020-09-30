@@ -1,0 +1,23 @@
+
+.play-liste {
+  border : white solid 1px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20vw, 20vw));
+  grid-template-rows: auto auto auto;
+  column-gap: 60px;
+  row-gap: 60px;
+  margin-bottom: 40px;
+}
+
+.img-list-playlist {
+    width : 20%;
+}
+
+.playslist-indiv {
+    border : white solid 1px;
+
+}
+
+.song-lists {
+    list-style-type: none;
+}

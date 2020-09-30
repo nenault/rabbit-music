@@ -8,8 +8,17 @@
     color : rgb(237, 200, 50)
 }
 
-.prop-plt {
- margin : 0 0 30px 10px;
+.prop-plt { 
+    display: flex;
+    
+}
+
+.copies {
+    margin-left: 10px;
+}
+
+.username {
+    margin : 0 10px 0 10px;
 }
 
 .list-title {
