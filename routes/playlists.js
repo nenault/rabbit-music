@@ -445,10 +445,10 @@ router.get("/:id", async function (req, res, next) {
 });
 
 
-router.get("/all-playlists", async function (req, res, next) {
+router.get("/copy-playlist/:id", protectPrivateRoute, async function (req, res, next) {
   try {
-    const allPlaylists = await Playlist.find();
-    res.render("public-user-playlists", { allPlaylists });
+    console.log("nico");
+   // res.render("public-user-playlists", { allPlaylists });
   } catch (error) {
     next(error);
   }
