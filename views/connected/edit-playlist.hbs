@@ -1,9 +1,9 @@
-<h1>Editer une playlist</h1>
+<h1 class="titlesr">Edit playlist</h1>
 
 <form method="post" action="/playlists/edit-playlist/{{playlist._id}}" id="form-playlist">
 
-    <label for="playlist-name" class="">Nom de la playlist</label>
-    <input id="playlist-name" name="name" type="playlist-name" class="" value="{{playlist.name}}" required>
+    <label for="playlist-name" class="create-form">Playlist's name</label>
+    <input id="playlist-name" name="name" type="playlist-name" class="form-cr" value="{{playlist.name}}" required>
 
     <input type="hidden" id="songs" name="songs" value="{{arrayId}}">
 
@@ -20,8 +20,10 @@
         {{/each}}
     </div>
 
-    <button class="">Save playlist</button>
+    <button class="save-btn">Save playlist</button>
 </form>
+
+<h2 class="add-songs">Add songs to your playlist : </h2>
 
 <div class="search">
     <form id="searchBox" class="searchBox" action="" method="get">
