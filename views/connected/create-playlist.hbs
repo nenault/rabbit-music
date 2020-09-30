@@ -1,27 +1,33 @@
-<h1>Créer une playlist</h1>
+<h1 class="titlesr">Create a playlist</h1>
 
 <form method="post" action="/playlists/create-playlist" id="form-playlist">
 
-    <label for="playlist-name" class="">Nom de la playlist</label>
-    <input id="playlist-name" name="name" type="playlist-name" class="" placeholder="Ma super playlist" required>
+    <label for="playlist-name" class="create-form">Playlist's name : </label>
+    <input id="playlist-name" name="name" type="playlist-name" class="form-cr" placeholder="My playlist..." required>
 
     <input type="hidden" id="songs" name="songs" value="{{song.id}}">
     <input type="hidden" id="user" name="user" value="{{userId}}">
 
+    
     <div class="songs-list">
+
+      <div class="plst">
         <div class="song">
-            <img src="{{#imageDisplay song.album.images}}{{/imageDisplay}}" alt="">
-            <p>{{song.name}} de {{#each song.artists}}{{name}}, {{/each}}</p>
-            <audio class="" controls src="{{song.preview_url}}">
+            <img src="{{#imageDisplay song.album.images}}{{/imageDisplay}}" alt="" class="plt-img">
+            <p>{{song.name}} by {{#each song.artists}}{{name}}, {{/each}}</p>
+            <audio class="player" controls src="{{song.preview_url}}">
                 Your browser does not support the
                 <code>audio</code> element.
-            </audio>
+            </audio>  
         </div>
-    </div>
-
-    <button class="">Create playlist</button>
+        <button class="cr-btn">Create playlist</button> 
+        </div>
+   </div>
 
 </form>
+ 
+<h2 class="add-songs">Add songs to your playlist : </h2>
+
 
 <div class="search">
     <form id="searchBox" class="searchBox" action="" method="get">
