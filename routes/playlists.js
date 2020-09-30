@@ -339,7 +339,7 @@ router.get("/:state/:id/:query", protectPrivateRoute, function (
       const refreshToken = response.data.refresh_token;
 
       axios({
-        url: `https://api.spotify.com/v1/search?q=${req.params.query}&type=track,artist&limit=6`,
+        url: `https://api.spotify.com/v1/search?q=${req.params.query}&type=track,artist`,
 
         headers: {
           Accept: "application/json",
@@ -543,48 +543,75 @@ router.get("/:id", async function (req, res, next) {
 });
 
 
-router.get("/copy-playlist/:id", protectPrivateRoute, async function (req, res, next) {
-  try {
-    console.log("nico");
-   // res.render("public-user-playlists", { allPlaylists });
-  } catch (error) {
-    next(error);
-  }
-});
+router.get("/user/:id", async function (req, res, next) {
+  try {  
 
-router.get("/copy-playlist/:id", protectPrivateRoute, async function (
-  req,
-  res,
-  next
-) {
-  try {
-    // console.log(req);
+      const user = req.params.id;
+      const relatedPlaylist = await Playlist.find({
+        user: { $in: [user] },
+      }).populate("user");
+      
+      let username = relatedPlaylist[0].user.username;
 
-    /*      user = db.users.findOne({'nickname': 'user1'})
-     user.nickname = 'userX'
-     delete user['_id']
-     db.users.insert(user) */
+      const allSongsId = [];
+      const objSongs = {};
+      const idSongs = {};
+      let i = 0;
+      for(let playlist of relatedPlaylist){
+        // console.log(playlist);
+        const keyName = "playlist" + (i + 1);
+        i++;
+        objSongs[keyName] = [];
+        allSongsId[keyName] = [];
+  
+        idSongs[keyName] = [];
+        playlist.songs.splice(5);
+        ids = playlist.songs.join(",");
+        idSongs[keyName].push(ids);
 
-    const playlistId = req.params.id;
-
-    const getPlaylist = await Playlist.findById(playlistId);
-    getPlaylist.user = req.session.currentUser._id;
-    getPlaylist.remove(["_id"]);
-    //console.log(Playlist);
-    //Playlist.insert(getPlaylist)
-    Playlist.insertMany(getPlaylist);
-
-    // res.render("public-user-playlists", { allPlaylists });
-
-    /* const copyPlaylist = await Playlist.create({
-    name: req.body.name,
-    user: req.body.user,
-    songs: songListToarray,
-    copies: req.body.copies,
-  }); */
-  } catch (error) {
-    next(error);
-  }
+        // console.log(idSongs[keyName]);
+        const {data:token} = await  axios({
+          url: "https://accounts.spotify.com/api/token",
+          method: "post",
+          params: {
+            grant_type: "client_credentials",
+          },
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          auth: {
+            username: process.env.CLIENT_ID,
+            password: process.env.CLIENT_SECRET,
+          },
+        })
+       const response =  await axios({
+                  url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
+      
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                  params: {
+                    access_token: token.access_token,
+                    refresh_token: token.refresh_token,
+                  },
+                })
+        response.data.tracks.forEach((song) => {
+          objSongs[keyName].push(song);
+        });
+        playlist.details.push(...objSongs[keyName])
+        
+      }
+      // res.json(relatedPlaylist)
+      res.render("user-playlists", {
+        relatedPlaylist,
+        username : username
+      });
+    
+    } catch (error) {
+      next(error);
+    }
 });
 
 router.get("/copy-playlist/:id", protectPrivateRoute, async function (
