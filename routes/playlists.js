@@ -77,7 +77,7 @@ router.get("/see-all-playlists/:id", async function (req, res, next) {
       allSongsId[keyName] = [];
 
       idSongs[keyName] = [];
-      playlist.songs.splice(4);
+      playlist.songs.splice(5);
       ids = playlist.songs.join(",");
       idSongs[keyName].push(ids);
       const {data:token} = await  axios({
@@ -162,7 +162,7 @@ router.get("/manage-playlist", protectPrivateRoute, async function (
         allSongsId[keyName] = [];
   
         idSongs[keyName] = [];
-        playlist.songs.splice(4);
+        playlist.songs.splice(5);
         ids = playlist.songs.join(",");
         idSongs[keyName].push(ids);
 
