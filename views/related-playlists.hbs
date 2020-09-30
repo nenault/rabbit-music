@@ -9,6 +9,9 @@
 {{#each this.details}}
 <li>
 <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="imgsong">
+{{#each this.album.artists}}
+{{this.name}}
+{{/each}}
 {{this.name}}
 
 </li>

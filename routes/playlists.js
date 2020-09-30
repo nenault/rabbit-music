@@ -59,7 +59,7 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (
 
 router.get("/see-all-playlists/:id", async function (req, res, next) {
   try {
-    const songId = req.params.id;
+  const songId = req.params.id;
 
     const relatedPlaylist = await Playlist.find({
       songs: { $in: [songId] },
@@ -113,6 +113,7 @@ router.get("/see-all-playlists/:id", async function (req, res, next) {
       playlist.details.push(...objSongs[keyName])
       
     }
+    // res.json(relatedPlaylist)
     res.render("related-playlists", {relatedPlaylist});
       } catch (error) {
         next(error);
@@ -143,6 +144,64 @@ router.get("/manage-playlist", protectPrivateRoute, async function (
   res,
   next
 ) {
+  // try {  
+  //     const relatedPlaylist = await Playlist.find().populate("user");
+  
+  //     // console.log(relatedPlaylist);
+  //     const allSongsId = [];
+  //     const objSongs = {};
+  //     const idSongs = {};
+  //     let i = 0;
+  //     for(let playlist of relatedPlaylist){
+  //       const keyName = "playlist" + (i + 1);
+  //       i++;
+  //       objSongs[keyName] = [];
+  //       allSongsId[keyName] = [];
+  
+  //       idSongs[keyName] = [];
+  //       ids = playlist.songs.join(",");
+  //       idSongs[keyName].push(ids);
+  //       const {data:token} = await  axios({
+  //         url: "https://accounts.spotify.com/api/token",
+  //         method: "post",
+  //         params: {
+  //           grant_type: "client_credentials",
+  //         },
+  //         headers: {
+  //           Accept: "application/json",
+  //           "Content-Type": "application/x-www-form-urlencoded",
+  //         },
+  //         auth: {
+  //           username: process.env.CLIENT_ID,
+  //           password: process.env.CLIENT_SECRET,
+  //         },
+  //       })
+  //      const response =  await axios({
+  //                 url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
+      
+  //                 headers: {
+  //                   Accept: "application/json",
+  //                   "Content-Type": "application/x-www-form-urlencoded",
+  //                 },
+  //                 params: {
+  //                   access_token: token.access_token,
+  //                   refresh_token: token.refresh_token,
+  //                 },
+  //               })
+  //       response.data.tracks.forEach((song) => {
+  //         objSongs[keyName].push(song);
+  //       });
+  //       playlist.details.push(...objSongs[keyName])
+        
+  //     }
+    
+
+
+
+
+
+
+
   // const newPlaylist = req.body;
   // console.log(newPlaylist);
   const displayPlaylist = await Playlist.find();
