@@ -60,15 +60,23 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (
 router.get("/see-all-playlists/:id", async function (req, res, next) {
   try {
     const songId = req.params.id;
-
+    
     const relatedPlaylist = await Playlist.find({
       songs: { $in: [songId] },
     }).populate("user");
-
+    
     console.log(relatedPlaylist);
-
-    relatedPlaylist.forEach((playlist) => {
+    
+    const objSongs = {};
+    const idSongs = {};
+    relatedPlaylist.forEach((playlist, i) => {
+      const keyName = "playlist" + (i+1);
+      objSongs[keyName] = [];
+      
+      idSongs[keyName] = []
       ids = playlist.songs.join(",");
+      idSongs[keyName].push(ids);
+      console.log(idSongs);
 
       axios({
         url: "https://accounts.spotify.com/api/token",
@@ -91,8 +99,8 @@ router.get("/see-all-playlists/:id", async function (req, res, next) {
           const refreshToken = response.data.refresh_token;
 
           axios({
-            url: `https://api.spotify.com/v1/tracks/?ids=${ids}`,
-
+            url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
+            
             headers: {
               Accept: "application/json",
               "Content-Type": "application/x-www-form-urlencoded",
@@ -102,31 +110,31 @@ router.get("/see-all-playlists/:id", async function (req, res, next) {
               refresh_token: refreshToken,
             },
           })
-            .then((response) => {
-              const arrayId = [];
-
+          .then((response) => {
+              console.log(response.data.tracks);
               response.data.tracks.forEach((song) => {
-                arrayId.push(song.id);
-              });
-
-              // console.log(response.data.tracks);
-
-              res.render("related-playlists", {
-                playlist: playlist,
-                songs: response.data.tracks,
-                arrayId: arrayId,
-                javascripts: ["playlists"],
+                objSongs[keyName].push(song);
+                console.log(objSongs);
               });
             })
             .catch((err) => {
               console.log(err);
             });
-        })
-        .catch(function (error) {});
-    });
-  } catch (error) {
-    next(error);
-  }
+                          res.render("related-playlists", {
+                            relatedPlaylist,
+                            objSongs
+                          });
+          })
+          .catch(function (error) {});
+        });
+            // res.render("related-playlists", {
+            //   arrayId : arrayId,
+            //   relatedPlaylist,
+            //   javascripts: ["playlists"],
+            // });
+      } catch (error) {
+        next(error);
+      }
 });
 
 router.post("/create-playlist", protectPrivateRoute, async function (
