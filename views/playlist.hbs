@@ -1,19 +1,31 @@
-<h1>{{playlist.name}}</h1>
 
-<p>Created by {{username}}</p>
-<p>Copy : {{playlist.copies}}</p>
+<div class="list-title">
+    <h1 class="plt-name">{{playlist.name}}</h1><a href="/playlists/copy-playlist/{{playlist.id}}" class="copy-btn">Copy this playlist</a>
+</div>
 
-<a id="/playlists/copy-playlist/{{playlist.id}}">Copy this playlist</a>
+<div class="prop-plt">
+<p class="username">Created by <span class="num">{{username}}</span></p>
+<br>
+<p class="copies">Copied <span class="num">{{playlist.copies}}</span> times</p>
+</div>
 
-<div class="songs-list">
+
+<div class="list-in-playlist">
     {{#each songs}}
-    <div class="song">
-         <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="imgsong">
-        <p>{{this.name}} de {{#each this.artists}}{{name}}, {{/each}}</p>
-        <audio controls src="{{this.preview_url}}">
+    <div class="song-in-playlist">
+        <div class="img-song">
+        <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="cover">
+        </div>
+        <div class="song-info">
+        <p class="song-title">{{this.name}}</p>
+        <p class="num">{{#each this.artists}}{{name}}, {{/each}}</p>
+        </div>
+        <div class="audio">
+        <audio controls src="{{this.preview_url}}" class="player-in-list">
             Your browser does not support the
             <code>audio</code> element.
         </audio>
+        </div>
     </div>
     {{/each}}
 </div>
