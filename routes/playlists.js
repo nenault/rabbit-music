@@ -530,5 +530,31 @@ router.get("/copy-playlist/:id", protectPrivateRoute, async function (
   }
 });
 
+router.get("/copy-playlist/:id", protectPrivateRoute, async function (
+  req,
+  res,
+  next
+) {
+  try {
+    const playlistId = req.params.id;
+
+    const getPlaylist = await Playlist.findById(playlistId).select("-_id");
+    let copiesNb = getPlaylist.copies;
+    copiesNb++;
+
+    const getPlaylisttoCount = await Playlist.findByIdAndUpdate(
+      { _id: playlistId },
+      { copies: copiesNb }
+    );
+
+    getPlaylist.user = req.session.currentUser._id;
+    getPlaylist.copies = 0; 
+    Playlist.insertMany(getPlaylist);
+
+    res.redirect("/playlists/manage-playlist");
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
