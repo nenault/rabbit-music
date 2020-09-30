@@ -49,3 +49,7 @@
   cursor: pointer;
   outline: inherit;
 }
+
+.add-container {
+    margin-bottom: 30px;
+}
