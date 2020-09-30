@@ -436,5 +436,40 @@ router.get("/copy-playlist/:id", protectPrivateRoute, async function (req, res, 
   }
 });
 
+router.get("/copy-playlist/:id", protectPrivateRoute, async function (
+  req,
+  res,
+  next
+) {
+  try {
+    // console.log(req);
+
+    /*      user = db.users.findOne({'nickname': 'user1'})
+     user.nickname = 'userX'
+     delete user['_id']
+     db.users.insert(user) */
+
+    const playlistId = req.params.id;
+
+    const getPlaylist = await Playlist.findById(playlistId);
+    getPlaylist.user = req.session.currentUser._id;
+    getPlaylist.remove(["_id"]);
+    //console.log(Playlist);
+    //Playlist.insert(getPlaylist)
+    Playlist.insertMany(getPlaylist);
+
+    // res.render("public-user-playlists", { allPlaylists });
+
+    /* const copyPlaylist = await Playlist.create({
+    name: req.body.name,
+    user: req.body.user,
+    songs: songListToarray,
+    copies: req.body.copies,
+  }); */
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 module.exports = router;
