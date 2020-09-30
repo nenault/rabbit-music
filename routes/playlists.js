@@ -631,6 +631,8 @@ router.get("/copy-playlist/:id", protectPrivateRoute, async function (
       { copies: copiesNb }
     );
 
+    console.log(getPlaylist);
+
     getPlaylist.user = req.session.currentUser._id;
     getPlaylist.copies = 0; 
     Playlist.insertMany(getPlaylist);

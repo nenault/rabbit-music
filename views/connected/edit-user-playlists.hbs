@@ -3,40 +3,38 @@
 <div class="play-liste">
     {{#each relatedPlaylist}}
 
+    {{#isSameId  this.user._id ../userId }}
     <div class="playslist-indiv">
+    <div>
+        <p class="rel-plt-title title2">{{this.name}}</p>
 
-        <div>
-            {{#isSameId  this.user._id ../userId }}
-                <p class="rel-plt-title title2">{{this.name}}</p>
-                
-                <ul class="song-lists">
+        <ul class="song-lists">
 
-                    {{#each this.details}}
-                    <li class="li">
+            {{#each this.details}}
+            <li class="li">
 
-                        <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt=""
-                            class="img-list-playlist">
+                <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="img-list-playlist">
 
-                        <div class="title-art">
-                            <span>{{this.name}} </span>
-                            <span class="yellow">
-                                {{#each this.album.artists}}
-                                {{this.name}}
-                                {{/each}}
-                            </span>
-                            {{/each}}
-                        </div>
-                    </li>
-                </ul>
-    
-        </div>
-            <div class="seebtn">
-                <a class="edit-btn" href="/playlists/edit-playlist/{{this._id}}">Edit</a>
-                <a class="delete-btn" href="/playlists/delete-playlist/{{this._id}}">Delete</a>
-            </div>
+                <div class="title-art">
+                    <span>{{this.name}} </span>
+                    <span class="yellow">
+                        {{#each this.album.artists}}
+                        {{this.name}}
+                        {{/each}}
+                    </span>
+                    {{/each}}
+                </div>
+            </li>
+        </ul>
 
-        
-        {{/isSameId}}
     </div>
-    {{/each}}
+    <div class="seebtn">
+        <a class="edit-btn" href="/playlists/edit-playlist/{{this._id}}">Edit</a>
+        <a class="delete-btn" href="/playlists/delete-playlist/{{this._id}}">Delete</a>
+    </div>
+
+</div>
+{{/isSameId}}
+
+{{/each}}
 </div>
