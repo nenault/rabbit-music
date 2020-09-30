@@ -8,8 +8,7 @@
     <input type="hidden" id="songs" name="songs" value="{{song.id}}">
     <input type="hidden" id="user" name="user" value="{{userId}}">
 
-    
-    <div class="songs-list">
+    {{!-- <div class="songs-list">
 
       <div class="plst">
         <div class="song">
@@ -22,13 +21,35 @@
         </div>
         <button class="cr-btn">Create playlist</button> 
         </div>
-   </div>
+   </div> --}}
+
+
 
 </form>
- 
-<h2 class="add-songs">Add songs to your playlist : </h2>
 
-<div class="add-song">
+
+<div class="list-in-playlist">
+    <div class="song-in-playlist">
+        <div class="img-song">
+            <img src="{{#imageDisplay song.album.images}}{{/imageDisplay}}" alt="" class="cover">
+        </div>
+        <div class="song-info">
+            <p class="song-title">{{song.name}}</p>
+            <p class="num">{{#each song.artists}}{{name}}, {{/each}}</p>
+        </div>
+        <div class="audio"></div>
+        <audio class="player" controls src="{{song.preview_url}}" class="player-in-list">
+            Your browser does not support the
+            <code>audio</code> element.
+        </audio>
+    </div>
+</div>
+
+<button class="cr-btn">Create playlist</button> 
+
+
+
+<h2 class="add-songs">Add songs to your playlist : </h2>
 <div class="search">
     <form id="searchBox" class="searchBox" action="" method="get">
         <label for="song"></label>
@@ -37,6 +58,6 @@
         <button type="submit" value="Search" class="searchBtn"><i class="fa fa-search"></i></button>
     </form>
 </div>
-</div>
+
 <div id="songcontainer">
-</div>
+</div> 
