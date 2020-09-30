@@ -1,6 +1,5 @@
 
 .play-liste {
-  border : white solid 1px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20vw, 20vw));
   grid-template-rows: auto auto auto;
@@ -11,13 +10,68 @@
 
 .img-list-playlist {
     width : 20%;
+    height: auto;
+    display: block;
+    padding-right : 10px;
 }
 
 .playslist-indiv {
-    border : white solid 1px;
-
+    border: rgb(237, 200, 50) solid 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: rgba(146, 143, 143, 0.2);
+    padding-top : 10px;
 }
 
 .song-lists {
     list-style-type: none;
+    padding : 0;
+    
+}
+
+.rel-plt-title {
+    text-align: center;
+    font-size : 1.6em;
+    margin : 10px 0 5px 0;
+}
+
+.li {
+    display: flex;
+    margin : 10px 10px 5px 20px;
+} 
+
+.title-art {
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+}
+
+.yellow {
+     color:rgb(237, 200, 50);
+}
+
+.user-name-list {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.see-btn {
+    text-decoration: none;
+    border: 1px solid rgba(237, 200, 50, 1);
+    background: black;
+    font-size: 0.8em;
+    color: white;
+    border-radius: 30px;
+    width : 40%;
+    padding : 10px 10px;
+    cursor: pointer;
+    text-align: center;
+     align-self: flex-end;
+}
+
+.seebtn {
+    text-align: center;
+    margin : 20px 0 30px 0;
+   
 }

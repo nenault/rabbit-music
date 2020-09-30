@@ -3,22 +3,33 @@
 <div class="play-liste">
 {{#each relatedPlaylist}}
 
+
 <div class="playslist-indiv">
-<p>{{this.name}}: </p>
+    <div>
+<p class="rel-plt-title">{{this.name}}</p>
+<p class="user-name-list">created by <span class="yellow">{{this.user.username}}</span></p>
 
 <ul class="song-lists">
 
 {{#each this.details}}
-<li>
+<li class="li">
+
 <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="img-list-playlist">
+<div class="title-art">
+<span>{{this.name}} </span>
+<span class="yellow">
 {{#each this.album.artists}}
 {{this.name}}
 {{/each}}
-{{this.name}} 
-</li>
+</span>
 {{/each}}
+</div>
+</li>
 </ul>
-
+</div>
+<div class="seebtn">
+ <a class="see-btn" href="/playlists/{{this._id}}">Full playlist</a>
+     </div>
 </div>
 {{/each}}
 

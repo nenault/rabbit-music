@@ -1,6 +1,9 @@
 <h1 class="titlesr">Edit your own playlist</h1>
 
+<div class="play-liste">
 {{#each relatedPlaylist}}
+
+<div class="playslist-indiv"></div>
 {{#isSameId  this.user._id ../userId }}
 <div class="playlist">
     <p>{{this.name}}</p>
@@ -26,3 +29,4 @@
 </div>
 {{/isSameId}}
 {{/each}}
+</div>
