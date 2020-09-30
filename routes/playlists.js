@@ -444,4 +444,15 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
+
+router.get("/all-playlists", async function (req, res, next) {
+  try {
+    const allPlaylists = await Playlist.find();
+    res.render("public-user-playlists", { allPlaylists });
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 module.exports = router;
