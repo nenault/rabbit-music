@@ -1,40 +1,40 @@
 <h1 class="titlesr">Related playlist</h1>
 
 <div class="play-liste">
-{{#each relatedPlaylist}}
+    {{#each relatedPlaylist}}
 
 
-<div class="playslist-indiv">
-    <div>
-<p class="rel-plt-title">{{this.name}}</p>
-<p class="user-name-list">created by <span class="yellow">{{this.user.username}}</span></p>
+    <div class="playslist-indiv">
 
-<ul class="song-lists">
+        <div>
+            <p class="rel-plt-title">{{this.name}}</p>
+            <p class="user-name-list">created by <span class="yellow">{{this.user.username}}</span></p>
 
-{{#each this.details}}
-<li class="li">
+            <ul class="song-lists">
 
-<img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="img-list-playlist">
-<div class="title-art">
-<span>{{this.name}} </span>
-<span class="yellow">
-{{#each this.album.artists}}
-{{this.name}}
-{{/each}}
-</span>
-{{/each}}
+                {{#each this.details}}
+                <li class="li">
+
+                    <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="img-list-playlist">
+
+                    <div class="title-art">
+                        <span>{{this.name}} </span>
+                        <span class="yellow">
+                            {{#each this.album.artists}}
+                            {{this.name}}
+                            {{/each}}
+                        </span>
+                        {{/each}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="seebtn">
+            <a class="see-btn" href="/playlists/{{this._id}}">Full playlist</a>
+        </div>
+
+    </div>
+    {{/each}}
+
 </div>
-</li>
-</ul>
-</div>
-<div class="seebtn">
- <a class="see-btn" href="/playlists/{{this._id}}">Full playlist</a>
-     </div>
-</div>
-{{/each}}
-
-</div>
-
-
-
-
