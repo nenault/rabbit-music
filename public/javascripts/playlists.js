@@ -47,9 +47,11 @@ async function submitHandler(event) {
           Your browser does not support the
           <code>audio</code> element.
       </audio>
+      <div class="add-container">
       <form action="" method="post" class="playerbtn">
       <input type="submit" class="add-to-playlist" value="Add to playlist">
       </form>
+      <div>
   </div>`;
     } else {
       let getPreview = "";
@@ -63,9 +65,11 @@ async function submitHandler(event) {
           Your browser does not support the
           <code>audio</code> element.
       </audio>
+      <div class="add-container">
       <form action="" method="post" class="playerbtn">
       <input type="submit" class="add-to-playlist" value="Add to playlist">
       </form>
+      </div>
   </div>`;
     }
   });
