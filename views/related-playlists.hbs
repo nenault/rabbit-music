@@ -4,40 +4,38 @@
     {{#each relatedPlaylist}}
 
 
-<div class="playslist-indiv">
-    <div>
-<p class="rel-plt-title">{{this.name}}</p>
-<p class="user-name-list">created by <a class="yellow" href="/playlists/user/{{this.user.id}}">{{this.user.username}}</a></p>
-
+    <div class="playslist-indiv">
         <div>
             <p class="rel-plt-title">{{this.name}}</p>
-            <p class="user-name-list">created by <span class="yellow">{{this.user.username}}</span></p>
+            <p class="user-name-list">created by <a class="yellow"
+                    href="/playlists/user/{{this.user.id}}">{{this.user.username}}</a></p>
+            <div>
+                <ul class="song-lists">
 
-            <ul class="song-lists">
+                    {{#each this.details}}
+                    <li class="li">
 
-                {{#each this.details}}
-                <li class="li">
+                        <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt=""
+                            class="img-list-playlist">
 
-                    <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="img-list-playlist">
-
-                    <div class="title-art">
-                        <span>{{this.name}} </span>
-                        <span class="yellow">
-                            {{#each this.album.artists}}
-                            {{this.name}}
+                        <div class="title-art">
+                            <span>{{this.name}} </span>
+                            <span class="yellow">
+                                {{#each this.album.artists}}
+                                {{this.name}}
+                                {{/each}}
+                            </span>
                             {{/each}}
-                        </span>
-                        {{/each}}
-                    </div>
-                </li>
-            </ul>
-        </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="seebtn">
-            <a class="see-btn" href="/playlists/{{this._id}}">Full playlist</a>
+            <div class="seebtn">
+                <a class="see-btn" href="/playlists/{{this._id}}">Full playlist</a>
+            </div>
+
         </div>
+        {{/each}}
 
     </div>
-    {{/each}}
-
-</div>
