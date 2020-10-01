@@ -59,7 +59,7 @@ router.get("/init-playlist/:id", protectPrivateRoute, function (
 
 router.get("/see-all-playlists/:id", async function (req, res, next) {
   try {
-  const songId = req.params.id;
+    const songId = req.params.id;
 
     const relatedPlaylist = await Playlist.find({
       songs: { $in: [songId] },
@@ -70,7 +70,7 @@ router.get("/see-all-playlists/:id", async function (req, res, next) {
     const objSongs = {};
     const idSongs = {};
     let i = 0;
-    for(let playlist of relatedPlaylist){
+    for (let playlist of relatedPlaylist) {
       const keyName = "playlist" + (i + 1);
       i++;
       objSongs[keyName] = [];
@@ -80,7 +80,7 @@ router.get("/see-all-playlists/:id", async function (req, res, next) {
       playlist.songs.splice(5);
       ids = playlist.songs.join(",");
       idSongs[keyName].push(ids);
-      const {data:token} = await  axios({
+      const { data: token } = await axios({
         url: "https://accounts.spotify.com/api/token",
         method: "post",
         params: {
@@ -94,31 +94,30 @@ router.get("/see-all-playlists/:id", async function (req, res, next) {
           username: process.env.CLIENT_ID,
           password: process.env.CLIENT_SECRET,
         },
-      })
-     const response =  await axios({
-                url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
-    
-                headers: {
-                  Accept: "application/json",
-                  "Content-Type": "application/x-www-form-urlencoded",
-                },
-                params: {
-                  access_token: token.access_token,
-                  refresh_token: token.refresh_token,
-                },
-              })
+      });
+      const response = await axios({
+        url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
+
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: {
+          access_token: token.access_token,
+          refresh_token: token.refresh_token,
+        },
+      });
       response.data.tracks.forEach((song) => {
         objSongs[keyName].push(song);
         // playlist.songs.push(objSongs[keyName][j].name)
       });
-      playlist.details.push(...objSongs[keyName])
-      
+      playlist.details.push(...objSongs[keyName]);
     }
     // res.json(relatedPlaylist)
-    res.render("related-playlists", {relatedPlaylist});
-      } catch (error) {
-        next(error);
-      }
+    res.render("related-playlists", { relatedPlaylist });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.post("/create-playlist", protectPrivateRoute, async function (
@@ -145,71 +144,67 @@ router.get("/manage-playlist", protectPrivateRoute, async function (
   res,
   next
 ) {
-  try {  
-      const relatedPlaylist = await Playlist.find().populate("user");
-      
-  
-      // console.log(relatedPlaylist);
-      const allSongsId = [];
-      const objSongs = {};
-      const idSongs = {};
-      let i = 0;
-      for(let playlist of relatedPlaylist){
-        // console.log(playlist);
-        const keyName = "playlist" + (i + 1);
-        i++;
-        objSongs[keyName] = [];
-        allSongsId[keyName] = [];
-  
-        idSongs[keyName] = [];
-        playlist.songs.splice(5);
-        ids = playlist.songs.join(",");
-        idSongs[keyName].push(ids);
+  try {
+    const relatedPlaylist = await Playlist.find().populate("user");
 
-        // console.log(idSongs[keyName]);
-        const {data:token} = await  axios({
-          url: "https://accounts.spotify.com/api/token",
-          method: "post",
-          params: {
-            grant_type: "client_credentials",
-          },
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          auth: {
-            username: process.env.CLIENT_ID,
-            password: process.env.CLIENT_SECRET,
-          },
-        })
-       const response =  await axios({
-                  url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
-      
-                  headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/x-www-form-urlencoded",
-                  },
-                  params: {
-                    access_token: token.access_token,
-                    refresh_token: token.refresh_token,
-                  },
-                })
-        response.data.tracks.forEach((song) => {
-          objSongs[keyName].push(song);
-        });
-        playlist.details.push(...objSongs[keyName])
-        
-      }
-      // res.json(relatedPlaylist)
-      res.render("connected/edit-user-playlists", {
-        relatedPlaylist,
-        userId: req.session.currentUser._id,
+    // console.log(relatedPlaylist);
+    const allSongsId = [];
+    const objSongs = {};
+    const idSongs = {};
+    let i = 0;
+    for (let playlist of relatedPlaylist) {
+      // console.log(playlist);
+      const keyName = "playlist" + (i + 1);
+      i++;
+      objSongs[keyName] = [];
+      allSongsId[keyName] = [];
+
+      idSongs[keyName] = [];
+      playlist.songs.splice(5);
+      ids = playlist.songs.join(",");
+      idSongs[keyName].push(ids);
+
+      // console.log(idSongs[keyName]);
+      const { data: token } = await axios({
+        url: "https://accounts.spotify.com/api/token",
+        method: "post",
+        params: {
+          grant_type: "client_credentials",
+        },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        auth: {
+          username: process.env.CLIENT_ID,
+          password: process.env.CLIENT_SECRET,
+        },
       });
-    
-    } catch (error) {
-      next(error);
-    }
+      const response = await axios({
+        url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
 
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: {
+          access_token: token.access_token,
+          refresh_token: token.refresh_token,
+        },
+      });
+      response.data.tracks.forEach((song) => {
+        objSongs[keyName].push(song);
+      });
+      playlist.details.push(...objSongs[keyName]);
+    }
+    // res.json(relatedPlaylist)
+    res.render("connected/edit-user-playlists", {
+      relatedPlaylist,
+      userId: req.session.currentUser._id,
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/delete-playlist/:id", protectPrivateRoute, async function (
@@ -409,69 +404,66 @@ router.get("/:state/:id/add-song/:ids", protectPrivateRoute, function (
 });
 
 router.get("/all-playlists", async function (req, res, next) {
-    try {  
-        const relatedPlaylist = await Playlist.find().populate("user");
-        
-    
-        // console.log(relatedPlaylist);
-        const allSongsId = [];
-        const objSongs = {};
-        const idSongs = {};
-        let i = 0;
-        for(let playlist of relatedPlaylist){
-          // console.log(playlist);
-          const keyName = "playlist" + (i + 1);
-          i++;
-          objSongs[keyName] = [];
-          allSongsId[keyName] = [];
-    
-          idSongs[keyName] = [];
-          playlist.songs.splice(5);
-          ids = playlist.songs.join(",");
-          idSongs[keyName].push(ids);
-  
-          // console.log(idSongs[keyName]);
-          const {data:token} = await  axios({
-            url: "https://accounts.spotify.com/api/token",
-            method: "post",
-            params: {
-              grant_type: "client_credentials",
-            },
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            auth: {
-              username: process.env.CLIENT_ID,
-              password: process.env.CLIENT_SECRET,
-            },
-          })
-         const response =  await axios({
-                    url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
-        
-                    headers: {
-                      Accept: "application/json",
-                      "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    params: {
-                      access_token: token.access_token,
-                      refresh_token: token.refresh_token,
-                    },
-                  })
-          response.data.tracks.forEach((song) => {
-            objSongs[keyName].push(song);
-          });
-          playlist.details.push(...objSongs[keyName])
-          
-        }
-        // res.json(relatedPlaylist)
-        res.render("public-user-playlists", {
-          relatedPlaylist,
-        });
-      
-      } catch (error) {
-        next(error);
-      }
+  try {
+    const relatedPlaylist = await Playlist.find().populate("user");
+
+    // console.log(relatedPlaylist);
+    const allSongsId = [];
+    const objSongs = {};
+    const idSongs = {};
+    let i = 0;
+    for (let playlist of relatedPlaylist) {
+      // console.log(playlist);
+      const keyName = "playlist" + (i + 1);
+      i++;
+      objSongs[keyName] = [];
+      allSongsId[keyName] = [];
+
+      idSongs[keyName] = [];
+      playlist.songs.splice(5);
+      ids = playlist.songs.join(",");
+      idSongs[keyName].push(ids);
+
+      // console.log(idSongs[keyName]);
+      const { data: token } = await axios({
+        url: "https://accounts.spotify.com/api/token",
+        method: "post",
+        params: {
+          grant_type: "client_credentials",
+        },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        auth: {
+          username: process.env.CLIENT_ID,
+          password: process.env.CLIENT_SECRET,
+        },
+      });
+      const response = await axios({
+        url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
+
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: {
+          access_token: token.access_token,
+          refresh_token: token.refresh_token,
+        },
+      });
+      response.data.tracks.forEach((song) => {
+        objSongs[keyName].push(song);
+      });
+      playlist.details.push(...objSongs[keyName]);
+    }
+    // res.json(relatedPlaylist)
+    res.render("public-user-playlists", {
+      relatedPlaylist,
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get(
@@ -528,9 +520,12 @@ router.get("/:id", async function (req, res, next) {
           },
         })
           .then((response) => {
-           // console.log(response.data.tracks);
+            // console.log(response.data.tracks);
             // res.send(response.data.tracks);
-            res.render("playlist", { playlist: playlist , songs:response.data.tracks});
+            res.render("playlist", {
+              playlist: playlist,
+              songs: response.data.tracks,
+            });
           })
           .catch((err) => {
             console.log(err);
@@ -542,76 +537,72 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
-
 router.get("/user/:id", async function (req, res, next) {
-  try {  
+  try {
+    const user = req.params.id;
+    const relatedPlaylist = await Playlist.find({
+      user: { $in: [user] },
+    }).populate("user");
 
-      const user = req.params.id;
-      const relatedPlaylist = await Playlist.find({
-        user: { $in: [user] },
-      }).populate("user");
-      
-      let username = relatedPlaylist[0].user.username;
+    let username = relatedPlaylist[0].user.username;
 
-      const allSongsId = [];
-      const objSongs = {};
-      const idSongs = {};
-      let i = 0;
-      for(let playlist of relatedPlaylist){
-        // console.log(playlist);
-        const keyName = "playlist" + (i + 1);
-        i++;
-        objSongs[keyName] = [];
-        allSongsId[keyName] = [];
-  
-        idSongs[keyName] = [];
-        playlist.songs.splice(5);
-        ids = playlist.songs.join(",");
-        idSongs[keyName].push(ids);
+    const allSongsId = [];
+    const objSongs = {};
+    const idSongs = {};
+    let i = 0;
+    for (let playlist of relatedPlaylist) {
+      // console.log(playlist);
+      const keyName = "playlist" + (i + 1);
+      i++;
+      objSongs[keyName] = [];
+      allSongsId[keyName] = [];
 
-        // console.log(idSongs[keyName]);
-        const {data:token} = await  axios({
-          url: "https://accounts.spotify.com/api/token",
-          method: "post",
-          params: {
-            grant_type: "client_credentials",
-          },
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          auth: {
-            username: process.env.CLIENT_ID,
-            password: process.env.CLIENT_SECRET,
-          },
-        })
-       const response =  await axios({
-                  url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
-      
-                  headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/x-www-form-urlencoded",
-                  },
-                  params: {
-                    access_token: token.access_token,
-                    refresh_token: token.refresh_token,
-                  },
-                })
-        response.data.tracks.forEach((song) => {
-          objSongs[keyName].push(song);
-        });
-        playlist.details.push(...objSongs[keyName])
-        
-      }
-      // res.json(relatedPlaylist)
-      res.render("user-playlists", {
-        relatedPlaylist,
-        username : username
+      idSongs[keyName] = [];
+      playlist.songs.splice(5);
+      ids = playlist.songs.join(",");
+      idSongs[keyName].push(ids);
+
+      // console.log(idSongs[keyName]);
+      const { data: token } = await axios({
+        url: "https://accounts.spotify.com/api/token",
+        method: "post",
+        params: {
+          grant_type: "client_credentials",
+        },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        auth: {
+          username: process.env.CLIENT_ID,
+          password: process.env.CLIENT_SECRET,
+        },
       });
-    
-    } catch (error) {
-      next(error);
+      const response = await axios({
+        url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
+
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: {
+          access_token: token.access_token,
+          refresh_token: token.refresh_token,
+        },
+      });
+      response.data.tracks.forEach((song) => {
+        objSongs[keyName].push(song);
+      });
+      playlist.details.push(...objSongs[keyName]);
     }
+    // res.json(relatedPlaylist)
+    res.render("user-playlists", {
+      relatedPlaylist,
+      username: username,
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/copy-playlist/:id", protectPrivateRoute, async function (
@@ -634,12 +625,72 @@ router.get("/copy-playlist/:id", protectPrivateRoute, async function (
     console.log(getPlaylist);
 
     getPlaylist.user = req.session.currentUser._id;
-    getPlaylist.copies = 0; 
+    getPlaylist.copies = 0;
     Playlist.insertMany(getPlaylist);
 
     res.redirect("/playlists/manage-playlist");
   } catch (error) {
     next(error);
+  }
+});
+
+router.get("/manage-playlist/import", protectPrivateRoute, async function (
+  req,
+  res,
+  next
+) {
+  // console.log(req.params.ids);
+  //console.log(req.session.currentUser);
+  const data = req.session.currentUser.spotify;
+
+  const dataArr = [...data];
+  //console.log([...data]);
+
+  for (let i = 0; i < dataArr.length; i++) {
+    // console.log(dataArr[i].id);
+
+    const playlistList = dataArr[i].id;
+
+    axios({
+      url: "https://accounts.spotify.com/api/token",
+      method: "post",
+      params: {
+        grant_type: "client_credentials",
+      },
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      auth: {
+        username: process.env.CLIENT_ID,
+        password: process.env.CLIENT_SECRET,
+      },
+    })
+      .then(function (response) {
+        const accessToken = response.data.access_token;
+        const refreshToken = response.data.refresh_token;
+  
+        axios({
+          url: `https://api.spotify.com/v1/playlists/${playlistList}/tracks`,
+  
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          params: {
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          },
+        })
+          .then((response) => {
+            //console.log(response.data);
+            // res.send(response.data.tracks);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch(function (error) {});
   }
 });
 

@@ -9,7 +9,8 @@ const userSchema = new Schema({
     role : {
         type : String,
         default : "user"
-    }
+    },
+    spotify: [{}]
 });
 
 const User = mongoose.model("User", userSchema);
