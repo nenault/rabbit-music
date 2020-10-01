@@ -747,7 +747,7 @@ router.get(
   async (req, res, next) => {
     try {
       let code = req.query.code;
-console.log("nico");
+      console.log("nico");
       
       const client_id = process.env.CLIENT_ID;
       const client_secret = process.env.CLIENT_SECRET;
