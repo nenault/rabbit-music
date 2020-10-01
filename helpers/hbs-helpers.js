@@ -14,3 +14,6 @@ hbs.registerHelper("imageDisplay", function (value1) {
   return image
 })
 
+
+
+

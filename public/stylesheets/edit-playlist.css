@@ -1,33 +1,46 @@
 .delete-song {
-    border: 1px solid rgba(237, 200, 50, 1);
-    background: black;
-    font-size: 0.8em;
-    color: white;
-    border-radius: 30px;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin: 20px 20px;
-    text-align: center;
-    display: inline;
+  border: 1px solid rgba(237, 200, 50, 1);
+  background: black;
+  font-size: 0.8em;
+  color: white;
+  border-radius: 30px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 20px 20px;
+  text-align: center;
+  display: inline;
 }
 
 .save-btn {
-    border: 1px solid rgba(237, 200, 50, 1);
-    background: black;
-    font-size: 0.8em;
-    color: white;
-    border-radius: 30px;
-    padding : 10px 30px;
-    margin-top : 30px;
-    cursor: pointer;
+  border: 1px solid rgba(237, 200, 50, 1);
+  background: black;
+  font-size: 0.8em;
+  color: white;
+  border-radius: 30px;
+  padding: 10px 30px;
+  margin-top: 30px;
+  cursor: pointer;
 }
 
 .dlt-btn {
-    border : white solid 1px;
-    width : 10%;
+  border: white solid 1px;
+  width: 10%;
 }
 
-.songs-list2 {
-    width : 120%;
-    margin-top: 40px;
+.songs-list {
+  width: 120%;
+  margin-top: 40px;
+}
+
+.add-playlist-btn {
+  border: 1px solid rgba(237, 200, 50, 1);
+  background: black;
+  font-size: 0.8em;
+  color: white;
+  border-radius: 30px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 20px 20px;
+  text-align: center;
+  display: inline;
 }

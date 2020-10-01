@@ -79,3 +79,17 @@
 .add-song {
     margin-bottom: 50px;
 }
+
+
+.add-playlist-btn {
+  border: 1px solid rgba(237, 200, 50, 1);
+  background: black;
+  font-size: 0.8em;
+  color: white;
+  border-radius: 30px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 20px 20px;
+  text-align: center;
+  display: inline;
+}
