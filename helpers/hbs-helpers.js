@@ -8,6 +8,29 @@ hbs.registerHelper("isSameId", function (value1, value2, options) {
   }
 });
 
+hbs.registerHelper('each_upto', function(ary, max, options) {
+  if(!ary || ary.length == 0)
+      return options.inverse(this);
+
+  var result = [ ];
+  for(var i = 0; i < max && i < ary.length; ++i)
+      result.push(options.fn(ary[i]));
+  return result.join('');
+});
+
+hbs.registerHelper("noEmptyTrack", function (ary, options) {
+  if(!ary || ary.length == 0)
+      return options.inverse(this);
+
+  var result = [ ];
+  for(var i = 0; i < ary.length; ++i){
+    if (ary[i].items != "") {
+      result.push(options.fn(ary[i]));
+    }
+  }
+  return result.join('');
+});
+
 hbs.registerHelper("imageDisplay", function (value1) {
   let length = value1.length;
   let image = value1[length-2].url;

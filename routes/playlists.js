@@ -640,10 +640,10 @@ router.get("/manage-playlist/import", protectPrivateRoute, async function (
   res,
   next
 ) {
-
   const data = req.session.currentUser.spotify;
-  
- const {data : token}= await axios({
+  const namePlaylist = [];
+
+  const { data: token } = await axios({
     url: "https://accounts.spotify.com/api/token",
     method: "post",
     params: {
@@ -661,38 +661,56 @@ router.get("/manage-playlist/import", protectPrivateRoute, async function (
   const accessToken = token.access_token;
   const refreshToken = token.refresh_token;
 
-  let finaltry = [];
-  let allSongs = [];
-  let songId = {};
-  let objSongs = {};
   let i = 0;
   const trackUrls = [];
   for (let playlist of data) {
-    
-
     const keyName = "playlist" + (i + 1);
     i++;
-    trackUrls.push(playlist.tracks.href)
-
+    trackUrls.push(playlist.tracks.href);
+    namePlaylist.push(playlist.name);
   }
-  const promises = trackUrls.map(trackUrl =>  axios({
-    url: trackUrl,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    params: {
-      access_token: accessToken,
-      refresh_token: refreshToken,
-    },
-  }))
+  // console.log(namePlaylist);
+  const promises = trackUrls.map((trackUrl) =>
+    axios({
+      url: trackUrl,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      params: {
+        access_token: accessToken,
+        refresh_token: refreshToken,
+      },
+    })
+  );
+  const fullArrCreate = [];
+  let arrCreate = {};
+  var arrIdSongs = [];
+  const finalArray = [];
+  const response = await Promise.all(promises);
+  const allDatas = response.map((res) => res.data);
+  const fullSet = allDatas.map(function (res, i) {
+    res.name = namePlaylist[i];
+    // console.log(res.total);
+    if (res.total != 0) {
+      finalArray.push(res);
+    }
+  });
+  // console.log(arrIdSongs);
+  // const responseAutre = finalArray.map(function (res, i) {
+  //   arrIdSongs.push(res.items.track.id);
+  // });
+  // console.log(responseAutre);
 
-  const response = await  Promise.all(promises)
-  // console.log(response);
-  const allDatas = response.map(res => res.data);
-  console.log(allDatas)
-  res.json(allDatas)
-    
+  // const createPlaylist = await Playlist.create({
+  //   name: req.body.name,
+  //   user: req.body.user,
+  //   songs: songListToarray,
+  //   copies: req.body.copies,
+  // });
+  // console.log(finalArray);
+  res.json(finalArray);
+  // res.render("connected/edit-user-playlists", {finalArray});
 });
 
 module.exports = router;

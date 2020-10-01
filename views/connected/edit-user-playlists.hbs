@@ -39,4 +39,43 @@
 {{/isSameId}}
 
 {{/each}}
+
+    {{#noEmptyTrack finalArray}}
+    {{!-- {{#each finalArray}} --}}
+
+    {{#isSameId  this.user._id ../userId }}
+    <div class="playslist-indiv">
+    <div>
+        <p class="rel-plt-title title2"><a class="playlist-lk" href="/playlists/{{this.id}}">{{this.name}}</a></p>
+
+        <ul class="song-lists">
+
+            {{#each_upto this.items 5}}
+            <li class="li">
+
+                <img src="{{#imageDisplay this.track.album.images}}{{/imageDisplay}}" alt="" class="img-list-playlist">
+
+                <div class="title-art">
+                    <span>{{this.track.name}} </span>
+                    <span class="yellow">
+                        {{#each this.track.artists}}
+                        {{this.name}}
+                        {{/each}}
+                    </span>
+                    {{/each_upto}}
+                </div>
+            </li>
+        </ul>
+
+    </div>
+    <div class="seebtn">
+        <a class="edit-btn" href="/playlists/edit-playlist/{{this._id}}">Edit</a>
+        <a class="delete-btn" href="/playlists/delete-playlist/{{this._id}}">Delete</a>
+    </div>
+
+</div>
+{{/isSameId}}
+
+{{!-- {{/each}} --}}
+{{/noEmptyTrack}}
 </div>
