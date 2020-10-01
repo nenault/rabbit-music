@@ -11,6 +11,11 @@ const userSchema = new Schema({
         default : "user"
     },
     spotifyid : String,
+    code: String,
+    isSpotify : {
+        type : Boolean,
+        default : "false"
+    },
     spotify: [{}]
 });
 

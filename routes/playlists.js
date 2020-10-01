@@ -640,10 +640,9 @@ router.get("/manage-playlist/import", protectPrivateRoute, async function (
   res,
   next
 ) {
-
   const data = req.session.currentUser.spotify;
-  
- const {data : token}= await axios({
+
+  const { data: token } = await axios({
     url: "https://accounts.spotify.com/api/token",
     method: "post",
     params: {
@@ -668,31 +667,122 @@ router.get("/manage-playlist/import", protectPrivateRoute, async function (
   let i = 0;
   const trackUrls = [];
   for (let playlist of data) {
-    
-
     const keyName = "playlist" + (i + 1);
     i++;
-    trackUrls.push(playlist.tracks.href)
-
+    trackUrls.push(playlist.tracks.href);
   }
-  const promises = trackUrls.map(trackUrl =>  axios({
-    url: trackUrl,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    params: {
-      access_token: accessToken,
-      refresh_token: refreshToken,
-    },
-  }))
+  const promises = trackUrls.map((trackUrl) =>
+    axios({
+      url: trackUrl,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      params: {
+        access_token: accessToken,
+        refresh_token: refreshToken,
+      },
+    })
+  );
 
-  const response = await  Promise.all(promises)
+  const response = await Promise.all(promises);
   // console.log(response);
-  const allDatas = response.map(res => res.data);
-  console.log(allDatas)
-  res.json(allDatas)
-    
+  const allDatas = response.map((res) => res.data);
+  console.log(allDatas);
+  res.json(allDatas);
 });
+
+router.get("/export/:id", protectPrivateRoute, async (req, res, next) => {
+  try {
+    //const playlistId = req.params.id;
+    const playlist = await Playlist.findById(playlistId).populate("user");
+    const spotiId = playlist.user.spotifyid;
+
+    const client_id = process.env.CLIENT_ID;
+    const client_secret = process.env.CLIENT_SECRET;
+    const redirect_uri =
+      "http://localhost:8080/playlists/export-playlist/exported";
+
+    let scopes =
+      "user-read-private user-read-email playlist-modify-public playlist-modify-private";
+    res.redirect(
+      "https://accounts.spotify.com/authorize" +
+        "?response_type=code" +
+        "&client_id=" +
+        client_id +
+        (scopes ? "&scope=" + encodeURIComponent(scopes) : "") +
+        "&redirect_uri=" +
+        encodeURIComponent(redirect_uri)
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get(
+  "/export-playlist/exported",
+  protectPrivateRoute,
+  async (req, res, next) => {
+    try {
+      let code = req.query.code;
+      const client_id = process.env.CLIENT_ID;
+      const client_secret = process.env.CLIENT_SECRET;
+      const redirect_uri =
+        "http://localhost:8080/playlists/export-playlist/exported";
+
+      axios({
+        url: "https://accounts.spotify.com/api/token",
+        method: "post",
+        params: {
+          client_id,
+          client_secret,
+          grant_type: "authorization_code",
+          code: code,
+          redirect_uri: redirect_uri,
+        },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        auth: {
+          username: process.env.CLIENT_ID,
+          password: process.env.CLIENT_SECRET,
+        },
+      })
+        .then(function (response) {
+          const accessToken = response.data.access_token;
+          const refreshToken = response.data.refresh_token;
+          
+          console.log(playlist.user.spotifyid);
+
+         /*  axios({
+            url: `https://api.spotify.com/v1/users/1166360172/playlists`,
+            method: "post",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            params: {
+              access_token: accessToken,
+              refresh_token: refreshToken,
+            },
+            data: {
+              name: "JORELLLLLLL",
+            },
+          })
+            .then((response) => {
+              console.log(response.data);
+              //res.send(response.data.tracks.items);
+            })
+            .catch((err) => {
+              console.log(err);
+            }); */
+        })
+        .catch(function (error) {});
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 module.exports = router;
