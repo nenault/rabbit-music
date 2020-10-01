@@ -111,18 +111,21 @@ body {
 /* boxes */
 
 .display {
-  width: 60vw;
-  height: 40vh;
+  width: 70vw;
+  height: 43vh;
   margin: 80px auto;
   display: flex;
   justify-content: space-between;
   
 }
+
 .displaylist {
-  border: white solid 1px;
+  border: rgb(237, 200, 50) solid 1px;
+  background: rgba(146, 143, 143, 0.2);
   width: 30%;
   height: 100%;
   position: relative;
+  padding-top : 10px;
 }
 
 .display a,
@@ -168,3 +171,4 @@ body {
   font-size : 2em;
   margin-top : 40px;
 }
+

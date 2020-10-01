@@ -28,3 +28,28 @@
     text-decoration: none;
     color:white;
 }
+
+.spot-logo {
+    width : 35px;
+    height: auto;
+    margin : 5px 10px 5px 10px;
+    display: inline-block;
+vertical-align: middle;
+}
+
+.link-spotify {
+    width : 17%;
+    border: 1px solid rgba(237, 200, 50, 1);
+    background: black;
+    font-size: 0.8em;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.link-spotify a {
+     text-decoration: none;
+    color : white;
+    font-size : 1.4em;
+}
