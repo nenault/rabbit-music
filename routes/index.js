@@ -28,7 +28,7 @@ router.get("/search", function (req, res, next) {
       const refreshToken = response.data.refresh_token;
 
       axios({
-        url: `https://api.spotify.com/v1/search?q=${req.query.song}&type=track,artist`,
+        url: `https://api.spotify.com/v1/search?q=${req.query.song}&type=track,artist&market=FR`,
 
         headers: {
           Accept: "application/json",
@@ -40,7 +40,8 @@ router.get("/search", function (req, res, next) {
         },
       })
         .then((response) => {
-      // console.log(response.data.tracks.items[0].album.images);
+          console.log(response.data.tracks.items[0]);
+        //  console.log(response.data.tracks.items[1]);
           res.render("song-search-results", {
             results: response.data.tracks.items,
           });
