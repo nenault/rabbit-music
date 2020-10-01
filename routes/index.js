@@ -40,8 +40,8 @@ router.get("/search", function (req, res, next) {
         },
       })
         .then((response) => {
-          console.log(response.data.tracks.items[0]);
-        //  console.log(response.data.tracks.items[1]);
+        //  console.log(response.data.tracks.items[0]);
+        //console.log(response.data.tracks.items[1]);
           res.render("song-search-results", {
             results: response.data.tracks.items,
           });

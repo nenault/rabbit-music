@@ -6,8 +6,10 @@
 <div class="song" song-id="{{this.id}}">
     <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="imgsong">
     <h2>{{this.name}}</h2> <h3>{{#each this.artists}}{{this.name}}, {{/each}}</h3>
-    <embed type="text/html" src="https://open.spotify.com/embed/track/{{this.id}}">
-
+    <audio class="player" controls src="{{this.preview_url}}">
+        Your browser does not support the
+        <code>audio</code> element.
+    </audio>
 
 <div class="playerlinks">
     <a class="playerbtn" href="playlists/see-all-playlists/{{this.id}}">Related playlists</a>
