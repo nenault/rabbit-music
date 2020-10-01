@@ -8,44 +8,30 @@
     <input type="hidden" id="songs" name="songs" value="{{song.id}}">
     <input type="hidden" id="user" name="user" value="{{userId}}">
 
-    {{!-- <div class="songs-list">
 
-      <div class="plst">
-        <div class="song">
-            <img src="{{#imageDisplay song.album.images}}{{/imageDisplay}}" alt="" class="plt-img">
-            <p>{{song.name}} by {{#each song.artists}}{{name}}, {{/each}}</p>
-            <audio class="player" controls src="{{song.preview_url}}">
-                Your browser does not support the
-                <code>audio</code> element.
-            </audio>  
+    <div class="songs-list">
+
+        <div class="songs"> {{!--song devient songs --}}
+            <div class="cover-song">
+                <img src="{{#imageDisplay song.album.images}}{{/imageDisplay}}" alt="" class="plt-img">
+            </div>
+
+            <div class="song-tle">
+                <p class="song-title">{{song.name}}</p>
+                <p class="num">{{#each song.artists}}{{name}}, {{/each}}</p>
+            </div>
+
+            <div class="audio2">
+                <audio class="player-in-list" controls src="{{song.preview_url}}">
+                    Your browser does not support the
+                    <code>audio</code> element.
+                </audio>
+            </div>
         </div>
-        <button class="cr-btn">Create playlist</button> 
-        </div>
-   </div> --}}
-
-
+    </div>
+    <button class="cr-btn">Create playlist</button>
 
 </form>
-
-
-<div class="list-in-playlist">
-    <div class="song-in-playlist">
-        <div class="img-song">
-            <img src="{{#imageDisplay song.album.images}}{{/imageDisplay}}" alt="" class="cover">
-        </div>
-        <div class="song-info">
-            <p class="song-title">{{song.name}}</p>
-            <p class="num">{{#each song.artists}}{{name}}, {{/each}}</p>
-        </div>
-        <div class="audio"></div>
-        <audio class="player" controls src="{{song.preview_url}}" class="player-in-list">
-            Your browser does not support the
-            <code>audio</code> element.
-        </audio>
-    </div>
-</div>
-
-<button class="cr-btn">Create playlist</button> 
 
 
 
@@ -59,5 +45,5 @@
     </form>
 </div>
 
-<div id="songcontainer">
-</div> 
+<div id="songcontainer" class="container-form">
+</div>

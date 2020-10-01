@@ -10,6 +10,7 @@ const userSchema = new Schema({
         type : String,
         default : "user"
     },
+    spotifyid : String,
     spotify: [{}]
 });
 

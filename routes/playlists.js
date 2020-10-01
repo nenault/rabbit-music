@@ -335,7 +335,7 @@ router.get("/:state/:id/:query", protectPrivateRoute, function (
       const refreshToken = response.data.refresh_token;
 
       axios({
-        url: `https://api.spotify.com/v1/search?q=${req.params.query}&type=track,artist&include_external=audio`,
+        url: `https://api.spotify.com/v1/search?q=${req.params.query}&type=track,artist`,
 
         headers: {
           Accept: "application/json",
@@ -348,7 +348,6 @@ router.get("/:state/:id/:query", protectPrivateRoute, function (
       })
         .then((response) => {
           res.send(response.data.tracks.items);
-          console.log(response.data.tracks.items);
         })
         .catch((err) => {
           console.log(err);

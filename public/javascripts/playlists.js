@@ -25,7 +25,7 @@ async function submitHandler(event) {
   sendValue.data.forEach((song) => {
     let getArtistsArr = song.artists;
 
-    console.log(song.album.images);
+    //console.log(song.album.images);
 
     if (song.artists.length > 1) {
       const artArr = [];
@@ -48,7 +48,7 @@ async function submitHandler(event) {
           <code>audio</code> element.
       </audio>
       <form action="" method="post" class="add-to-playlist">
-      <input type="submit" value="Add to playlist">
+      <input type="submit" class="add-playlist-btn" value="Add to playlist">
       </form>
   </div>`;
     } else {
@@ -64,7 +64,7 @@ async function submitHandler(event) {
           <code>audio</code> element.
       </audio>
       <form action="" method="post" class="add-to-playlist">
-      <input type="submit" value="Add to playlist">
+      <input type="submit" class="add-playlist-btn" value="Add to playlist">
       </form>
   </div>`;
     }
@@ -98,12 +98,21 @@ async function submitAdd(event) {
     if (song.preview_url != null) {
       getPreview = song.preview_url;
     }
-    getSongsList.innerHTML += `<div class="song" song-id="${song.id}">
-    <p>${song.name} de ${song.artists[0].name}</p>
-    <audio controls src="${getPreview}">
+    getSongsList.innerHTML += `<div class="songs" song-id="${song.id}">
+    <div class="cover-song">
+    <img src="${song.album.images[1].url}" alt="" class="plt-img">
+</div>
+<div class="song-tle">
+    <p class="song-title">${song.name}</p>
+    <p class="num">${song.artists[0].name}</p>
+</div>
+<div class="audio2">
+    <audio class="player-in-list" controls src="${getPreview}">
         Your browser does not support the
         <code>audio</code> element.
     </audio>
+</div>
+
     <p song-id="${song.id}" class="delete-song">Delete</p>
 </div>`;
     const getDeleteBtn = document.querySelectorAll(".delete-song");
@@ -146,14 +155,24 @@ async function submitDelete(event) {
     if (song.preview_url != null) {
       getPreview = song.preview_url;
     }
-    getSongsList.innerHTML += `<div class="song" song-id="${song.id}">
-    <p>${song.name} de ${song.artists[0].name}</p>
-    <audio controls src="${getPreview}">
+    getSongsList.innerHTML += `
+<div class="songs" song-id="${song.id}">
+    <div class="cover-song">
+    <img src="${song.album.images[1].url}" alt="" class="plt-img">
+</div>
+<div class="song-tle">
+    <p class="song-title">${song.name}</p>
+    <p class="num">${song.artists[0].name}</p>
+</div>
+<div class="audio2">
+    <audio class="player-in-list" controls src="${getPreview}">
         Your browser does not support the
         <code>audio</code> element.
     </audio>
+</div>
     <p song-id="${song.id}" class="delete-song">Delete</p>
-</div>`;
+</div>
+`;
     const getDeleteBtn = document.querySelectorAll(".delete-song");
     getDeleteBtn.forEach((btn) => {
       btn.addEventListener("click", submitDelete);

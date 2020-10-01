@@ -49,6 +49,7 @@
 
 .yellow {
      color:rgb(237, 200, 50);
+     text-decoration: none;
 }
 
 .user-name-list {
@@ -78,4 +79,9 @@
 
 .title2 {
     margin-bottom : 20px;
+}
+
+.playlist-lk {
+    text-decoration: none;
+    color:white;
 }

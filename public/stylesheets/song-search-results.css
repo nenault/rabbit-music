@@ -17,6 +17,11 @@
   margin-bottom: 40px;
 }
 
+.container-form {
+  margin-top:40px;
+}
+
+
 .song {
   border: rgb(237, 200, 50) solid 1px;
   display: flex;
@@ -38,11 +43,13 @@
   font-weight: lighter;
   font-size: 1em;
   margin-bottom: 15px;
+  padding:0px 20px 0px 20px;
 }
 
 .song h2 {
   margin-bottom: 15px;
   font-size: 1.2em;
+  padding:0px 20px 0px 20px;
 }
 
 .player {

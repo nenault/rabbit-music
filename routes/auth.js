@@ -78,6 +78,7 @@ router.get("/redirect-spotify", async (req, res, next) => {
                 username: response.data.display_name,
                 email: response.data.email,
                 password: code,
+                spotifyid: response.data.id
               };
 
               const foundUser = await User.findOne({ email: newUser.email });
