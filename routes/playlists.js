@@ -683,8 +683,9 @@ router.get("/manage-playlist/import", protectPrivateRoute, async function (
       },
     })
   );
-  const fullArrCreate = [];
+  var fullArrCreate = [];
   let arrCreate = {};
+  var arrNamePlaylist = [];
   var arrIdSongs = [];
   const finalArray = [];
   const response = await Promise.all(promises);
@@ -696,21 +697,43 @@ router.get("/manage-playlist/import", protectPrivateRoute, async function (
       finalArray.push(res);
     }
   });
+  const responseAutre = finalArray.map(function (res, i) {
+    arrNamePlaylist[i] = [];
+    arrIdSongs[i] = [];
+    arrNamePlaylist[i].push(res.name);
+    const encoreetencore = res.items.map(function (req, j) {
+      // console.log(req.track.id);
+      arrIdSongs[i].push(req.track.id);
+    });
+  });
   // console.log(arrIdSongs);
-  // const responseAutre = finalArray.map(function (res, i) {
-  //   arrIdSongs.push(res.items.track.id);
-  // });
-  // console.log(responseAutre);
+  // console.log(arrNamePlaylist);
 
-  // const createPlaylist = await Playlist.create({
-  //   name: req.body.name,
-  //   user: req.body.user,
-  //   songs: songListToarray,
-  //   copies: req.body.copies,
-  // });
+  for (let i = 0; i < arrIdSongs.length ; i++) {
+    fullArrCreate[i] = {};
+    fullArrCreate[i].name = arrNamePlaylist[i].join("");
+    fullArrCreate[i].songs = arrIdSongs[i];
+    fullArrCreate[i].user = req.session.currentUser._id;
+  }
+
+  console.log(fullArrCreate[0]);
+
+  fullArrCreate.forEach( async playlist => {
+    // console.log(playlist.name);
+    // console.log(playlist.songs);
+    // console.log(playlist.user);
+
+    const createPlaylist = await Playlist.create({
+      name : playlist.name,
+      songs : playlist.songs,
+      user : playlist.user,
+      copies : 0
+    });
+    
+  });
   // console.log(finalArray);
-  res.json(finalArray);
-  // res.render("connected/edit-user-playlists", {finalArray});
+  // res.json(finalArray);
+  res.redirect("/playlists/manage-playlist");
 });
 
 router.get("/export/:id", protectPrivateRoute, async (req, res, next) => {
@@ -773,10 +796,10 @@ router.get(
         .then(function (response) {
           const accessToken = response.data.access_token;
           const refreshToken = response.data.refresh_token;
-          
+
           console.log(playlist.user.spotifyid);
 
-         /*  axios({
+          /*  axios({
             url: `https://api.spotify.com/v1/users/1166360172/playlists`,
             method: "post",
             headers: {
