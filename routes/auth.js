@@ -93,7 +93,79 @@ router.get("/redirect-spotify", async (req, res, next) => {
                 delete userObject.password;
 
                 req.session.currentUser = userObject;
-                res.redirect("/");
+
+                
+                
+                (async () => {
+                  const user = {
+                    email: response.data.email,
+                  };
+                  const foundUser = await User.findOne({ email: user.email });
+
+                  const userDocument = { ...foundUser };
+                  const userObject = foundUser.toObject();
+                  delete userObject.password;
+
+                  req.session.currentUser = userObject;
+
+                  axios({
+                    url: `https://api.spotify.com/v1/me/playlists`,
+
+                    headers: {
+                      Accept: "application/json",
+                      "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    params: {
+                      access_token: accessToken,
+                    },
+                  })
+                    .then((response) => {
+                      (async () => {
+                        console.log(response.data.items);
+                        const playlistArray = response.data.items;
+                        
+                        for (let i = 0; i < playlistArray.length; i++) {
+                          console.log(playlistArray[i].tracks.href);
+                          const playlistsList = playlistArray[i].tracks.href;
+                          axios({
+                            url: `${playlistsList}`,
+                    
+                            headers: {
+                              Accept: "application/json",
+                              "Content-Type": "application/x-www-form-urlencoded",
+                            },
+                            params: {
+                              access_token: accessToken,
+                            },
+                          })
+                            .then((response) => {
+                            //console.log(response.data);
+                              // res.send(response.data.tracks);
+                            })
+                            .catch((err) => {
+                              console.log(err);
+                            });
+                          
+                        }
+
+                        const query = { email: user.email };
+                        const update = {
+                          $set: {
+                            spotify: response.data.items,
+                          },
+                        };
+
+                        const dataUser = await User.findOneAndUpdate(
+                          query,
+                          update
+                        );
+                      })();
+                    res.redirect("/");
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                })();
 
               } else {
                 const hashedPassword = bcrypt.hashSync(newUser.password, salt);
@@ -143,7 +215,7 @@ router.get("/redirect-spotify", async (req, res, next) => {
                             },
                           })
                             .then((response) => {
-                            console.log(response.data);
+                            //console.log(response.data);
                               // res.send(response.data.tracks);
                             })
                             .catch((err) => {
