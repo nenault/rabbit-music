@@ -709,7 +709,7 @@ router.get("/manage-playlist/import", protectPrivateRoute, async function (
   // console.log(arrIdSongs);
   // console.log(arrNamePlaylist);
 
-  for (let i = 0; i < arrIdSongs.length ; i++) {
+  for (let i = 0; i < arrIdSongs.length; i++) {
     fullArrCreate[i] = {};
     fullArrCreate[i].name = arrNamePlaylist[i].join("");
     fullArrCreate[i].songs = arrIdSongs[i];
@@ -718,18 +718,17 @@ router.get("/manage-playlist/import", protectPrivateRoute, async function (
 
   console.log(fullArrCreate[0]);
 
-  fullArrCreate.forEach( async playlist => {
+  fullArrCreate.forEach(async (playlist) => {
     // console.log(playlist.name);
     // console.log(playlist.songs);
     // console.log(playlist.user);
 
     const createPlaylist = await Playlist.create({
-      name : playlist.name,
-      songs : playlist.songs,
-      user : playlist.user,
-      copies : 0
+      name: playlist.name,
+      songs: playlist.songs,
+      user: playlist.user,
+      copies: 0,
     });
-    
   });
   // console.log(finalArray);
   // res.json(finalArray);
@@ -738,14 +737,14 @@ router.get("/manage-playlist/import", protectPrivateRoute, async function (
 
 router.get("/export/:id", protectPrivateRoute, async (req, res, next) => {
   try {
-    //const playlistId = req.params.id;
-   const playlist = await Playlist.findById(playlistId).populate("user");
-   const spotiId = playlist.user.spotifyid;
+    const playlistId = req.params.id;
+    const playlist = await Playlist.findById(playlistId).populate("user");
+    const spotiId = playlist.user.spotifyid;
 
     const client_id = process.env.CLIENT_ID;
     const client_secret = process.env.CLIENT_SECRET;
     const redirect_uri =
-    process.env.URL +"/playlists/export-playlist/exported";
+      process.env.URL + `/playlists/export-playlist/exported`;
 
     let scopes =
       "user-read-private user-read-email playlist-modify-public playlist-modify-private";
@@ -754,7 +753,6 @@ router.get("/export/:id", protectPrivateRoute, async (req, res, next) => {
         "?response_type=code" +
         "&client_id=" +
         client_id +
-        spotiId +
         (scopes ? "&scope=" + encodeURIComponent(scopes) : "") +
         "&redirect_uri=" +
         encodeURIComponent(redirect_uri)
@@ -770,12 +768,14 @@ router.get(
   async (req, res, next) => {
     try {
       let code = req.query.code;
-      console.log("nico");
-      
+      let spotiId = req.session.currentUser.spotifyid;
+      //const playlistId = req.params.id;
+      // console.log(playlistId);
+
       const client_id = process.env.CLIENT_ID;
       const client_secret = process.env.CLIENT_SECRET;
       const redirect_uri =
-      process.env.URL +"/playlists/export-playlist/exported";
+        process.env.URL + "/playlists/export-playlist/exported";
 
       axios({
         url: "https://accounts.spotify.com/api/token",
@@ -799,9 +799,9 @@ router.get(
         .then(function (response) {
           const accessToken = response.data.access_token;
           const refreshToken = response.data.refresh_token;
-          
-         /*  axios({
-            url: `https://api.spotify.com/v1/users/1166360172/playlists`,
+
+          /*  axios({
+            url: `https://api.spotify.com/v1/users/${spotiId}/playlists`,
             method: "post",
             headers: {
               Accept: "application/json",
