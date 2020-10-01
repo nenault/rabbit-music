@@ -7,17 +7,32 @@
 
     <input type="hidden" id="songs" name="songs" value="{{arrayId}}">
 
-    <div class="songs-list">
+    <div class="songs-list2">
+
         {{#each songs}}
-        <div class="song">
-            <p>{{this.name}} de {{#each this.artists}}{{name}}, {{/each}}</p>
-            <audio controls src="{{this.preview_url}}">
-                Your browser does not support the
-                <code>audio</code> element.
-            </audio>
+        <div class="songs">
+        
+            <div class="cover-song">
+                <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="plt-img">
+            </div>
+            <div class="song-tle">
+                <p class="song-title">{{this.name}}</p>
+                <p class="num">{{#each this.artists}}{{name}}, {{/each}}</p>
+            </div>
+            <div class="audio2">
+                <audio class="player-in-list" controls src="{{this.preview_url}}">
+                    Your browser does not support the
+                    <code>audio</code> element.
+                </audio>
+            </div>
             <p song-id="{{this.id}}" class="delete-song">Delete</p>
-        </div>
+        </div> 
+{{!-- <div class="dlt-btn"> --}}
+           
+        {{!-- </div> --}}
+        
         {{/each}}
+  
     </div>
 
     <button class="save-btn">Save playlist</button>

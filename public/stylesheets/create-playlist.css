@@ -1,11 +1,36 @@
 .songs-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20vw, 20vw));
-  margin-top: 20px;
+  margin-top: 40px;
+  width : 100%;
+}
+
+.songs {
+  width : 50%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 5px;
 }
 
 .plt-img {
-  width: 30%;
+  width: 50%;
+  display: block;
+  margin : auto;
+}
+
+.cover-song {
+  width : 20%;
+}
+
+.song-tle {
+    width : 30%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.audio2 {
+  width : 50%;
+  padding-left: 10px;
 }
 
 .create-form {
@@ -30,9 +55,6 @@
   margin: 20px 10px 0 10px;
 }
 
-.plst {
-  text-align: center;
-}
 
 .add-songs {
   margin-top: 30px;
