@@ -64,7 +64,7 @@
   } 
 
   .signup {
-     margin-top: 23%;
+     margin-top: 15%;
   }
 
   .signuplink {
@@ -72,5 +72,21 @@
   }
 
   .signupbis {
-      margin-top : 10%;
+      margin-top : 6%;
+  }
+
+  .spotify-logo {
+    width : 70px;
+    vertical-align: middle;
+  }
+
+  #btn2 {
+    border: 1px solid rgba(237, 200, 50, 1);
+    background: rgba(146, 143, 143, .2);
+    font-size: 18px;
+    color: rgba(237, 200, 50);
+    margin-top: 20px;
+    padding: 10px 50px;
+    cursor: pointer;
+    transition: .4s;
   }
