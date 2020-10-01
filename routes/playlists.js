@@ -4,6 +4,7 @@ const axios = require("axios");
 const Playlist = require("../models/playlist");
 const User = require("../models/user");
 const protectPrivateRoute = require("../middlewares/protectPrivateRoute");
+const { all } = require("../app");
 
 router.get("/init-playlist/:id", protectPrivateRoute, function (
   req,
@@ -623,7 +624,7 @@ router.get("/copy-playlist/:id", protectPrivateRoute, async function (
       { copies: copiesNb }
     );
 
-    console.log(getPlaylist);
+    // console.log(getPlaylist);
 
     getPlaylist.user = req.session.currentUser._id;
     getPlaylist.copies = 0;
@@ -640,59 +641,59 @@ router.get("/manage-playlist/import", protectPrivateRoute, async function (
   res,
   next
 ) {
-  // console.log(req.params.ids);
-  //console.log(req.session.currentUser);
+
   const data = req.session.currentUser.spotify;
-
-  const dataArr = [...data];
-  //console.log([...data]);
-
-  for (let i = 0; i < dataArr.length; i++) {
-    // console.log(dataArr[i].id);
-
-    const playlistList = dataArr[i].id;
-
-    axios({
-      url: "https://accounts.spotify.com/api/token",
-      method: "post",
-      params: {
-        grant_type: "client_credentials",
-      },
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      auth: {
-        username: process.env.CLIENT_ID,
-        password: process.env.CLIENT_SECRET,
-      },
-    })
-      .then(function (response) {
-        const accessToken = response.data.access_token;
-        const refreshToken = response.data.refresh_token;
   
-        axios({
-          url: `https://api.spotify.com/v1/playlists/${playlistList}/tracks`,
-  
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          params: {
-            access_token: accessToken,
-            refresh_token: refreshToken,
-          },
-        })
-          .then((response) => {
-            console.log(response.data);
-            // res.send(response.data.tracks);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch(function (error) {});
+ const {data : token}= await axios({
+    url: "https://accounts.spotify.com/api/token",
+    method: "post",
+    params: {
+      grant_type: "client_credentials",
+    },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    auth: {
+      username: process.env.CLIENT_ID,
+      password: process.env.CLIENT_SECRET,
+    },
+  });
+  const accessToken = token.access_token;
+  const refreshToken = token.refresh_token;
+
+  let finaltry = [];
+  let allSongs = [];
+  let songId = {};
+  let objSongs = {};
+  let i = 0;
+  const trackUrls = [];
+  for (let playlist of data) {
+    
+
+    const keyName = "playlist" + (i + 1);
+    i++;
+    trackUrls.push(playlist.tracks.href)
+
   }
+  const promises = trackUrls.map(trackUrl =>  axios({
+    url: trackUrl,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    params: {
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    },
+  }))
+
+  const response = await  Promise.all(promises)
+  // console.log(response);
+  const allDatas = response.map(res => res.data);
+  console.log(allDatas)
+  res.json(allDatas)
+    
 });
 
 module.exports = router;
