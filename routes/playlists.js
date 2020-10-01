@@ -716,13 +716,13 @@ router.get("/manage-playlist/import", protectPrivateRoute, async function (
 router.get("/export/:id", protectPrivateRoute, async (req, res, next) => {
   try {
     //const playlistId = req.params.id;
-    const playlist = await Playlist.findById(playlistId).populate("user");
-    const spotiId = playlist.user.spotifyid;
+   const playlist = await Playlist.findById(playlistId).populate("user");
+   const spotiId = playlist.user.spotifyid;
 
     const client_id = process.env.CLIENT_ID;
     const client_secret = process.env.CLIENT_SECRET;
     const redirect_uri =
-      "http://localhost:8080/playlists/export-playlist/exported";
+    process.env.URL +"/playlists/export-playlist/exported";
 
     let scopes =
       "user-read-private user-read-email playlist-modify-public playlist-modify-private";
@@ -731,6 +731,7 @@ router.get("/export/:id", protectPrivateRoute, async (req, res, next) => {
         "?response_type=code" +
         "&client_id=" +
         client_id +
+        spotiId +
         (scopes ? "&scope=" + encodeURIComponent(scopes) : "") +
         "&redirect_uri=" +
         encodeURIComponent(redirect_uri)
@@ -746,10 +747,12 @@ router.get(
   async (req, res, next) => {
     try {
       let code = req.query.code;
+console.log("nico");
+      
       const client_id = process.env.CLIENT_ID;
       const client_secret = process.env.CLIENT_SECRET;
       const redirect_uri =
-        "http://localhost:8080/playlists/export-playlist/exported";
+      process.env.URL +"/playlists/export-playlist/exported";
 
       axios({
         url: "https://accounts.spotify.com/api/token",
@@ -774,8 +777,6 @@ router.get(
           const accessToken = response.data.access_token;
           const refreshToken = response.data.refresh_token;
           
-          console.log(playlist.user.spotifyid);
-
          /*  axios({
             url: `https://api.spotify.com/v1/users/1166360172/playlists`,
             method: "post",

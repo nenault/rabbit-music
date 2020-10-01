@@ -8,7 +8,7 @@ const salt = 10;
 
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
-const redirect_uri = "http://localhost:8080/auth/redirect-spotify";
+const redirect_uri = process.env.URL +"/auth/redirect-spotify";
 
 router.get("/signin", async (req, res, next) => {
   res.render("signin", { css: ["signin"] });
