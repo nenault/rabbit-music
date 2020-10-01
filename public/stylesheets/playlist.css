@@ -80,3 +80,8 @@
     display: block;
     margin : auto;
 }
+
+.playlist-autor {
+    text-decoration: none;
+    color:rgb(237, 200, 50);
+}

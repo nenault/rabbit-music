@@ -19,7 +19,7 @@ router.get("/signin-spotify", async (req, res, next) => {
 });
 
 router.get("/login-spotify", async (req, res, next) => {
-  let scopes = "user-read-private user-read-email";
+  let scopes = "user-read-private user-read-email playlist-modify-public playlist-modify-private";
   res.redirect(
     "https://accounts.spotify.com/authorize" +
       "?response_type=code" +
@@ -78,6 +78,7 @@ router.get("/redirect-spotify", async (req, res, next) => {
                 username: response.data.display_name,
                 email: response.data.email,
                 password: code,
+                isSpotify: true,
                 spotifyid: response.data.id
               };
 
