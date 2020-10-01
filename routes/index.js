@@ -26,9 +26,9 @@ router.get("/search", function (req, res, next) {
      // console.log("response.data.access_token");
       const accessToken = response.data.access_token;
       const refreshToken = response.data.refresh_token;
-
+      let search = req.query.song.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       axios({
-        url: `https://api.spotify.com/v1/search?q=${req.query.song}&type=track,artist&market=FR`,
+        url: `https://api.spotify.com/v1/search?q=${search}&type=track,artist&market=FR`,
 
         headers: {
           Accept: "application/json",

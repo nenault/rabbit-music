@@ -48,6 +48,18 @@ hbs.registerHelper("artistDisplay", function (list) {
   }
 })
 
+hbs.registerHelper("artistDisplay2", function (list) {
+  
+  if (list.length > 0) {
+    const artArr = [];
+    for (let i = 0; i < list.length; i++) {
+      artArr.push(list[i].name);
+    }
+    const artistsList = artArr.join(", ");
+    return artistsList;
+  }
+})
+
 /* if (song.artists.length > 1) {
   const artArr = [];
   for (let i = 0; i < song.artists.length; i++) {

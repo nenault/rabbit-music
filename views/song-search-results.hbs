@@ -5,7 +5,7 @@
 {{#each results}}
 <div class="song" song-id="{{this.id}}">
     <img src="{{#imageDisplay this.album.images}}{{/imageDisplay}}" alt="" class="imgsong">
-    <h2>{{this.name}}</h2> <h3>{{#each this.artists}}{{this.name}} {{/each}}</h3>
+    <h2>{{this.name}}</h2> <h3>{{#artistDisplay2 this.artists}} {{/artistDisplay2}}</h3>
     <audio class="player" controls src="{{this.preview_url}}">
         Your browser does not support the
         <code>audio</code> element.
