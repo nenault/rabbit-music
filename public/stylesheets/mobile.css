@@ -8,7 +8,7 @@
   }
 
   .signin {
-      width: 80vw;
+    width: 80vw;
   }
 
   .mainTitle {
@@ -21,22 +21,140 @@
     margin: 0px;
   }
 
-
-.searchBox {
+  .searchBox {
     width: 90vw;
-}
+  }
   .display {
     flex-direction: column;
-    margin-top:30px;
-    margin-left:10%;
+    margin-top: 30px;
+    margin-left: 10%;
     height: 110vh;
   }
   .displaylist {
-      width: 100%;
-      margin-bottom:30px;
+    width: 100%;
+    margin-bottom: 30px;
   }
 
   #foot {
     left: 5%;
+  }
+
+  .titlesr {
+    font-size: 2em;
+  }
+
+  #songcontainer {
+    grid-template-columns: repeat(auto-fit, minmax(80vw, 20vw));
+    margin-bottom: 100px;
+  }
+
+  #navbarpart {
+    flex-direction: column;
+    flex-flow: column-reverse;
+  }
+
+  #title {
+    width: 80%;
+    margin-left: 5%;
+  }
+
+  .logolink {
+    margin-top: 20px;
+  }
+
+  .search-form {
+    height: 30px;
+    margin-left: 10px;
+  }
+
+  .logbtn {
+    margin: 0 0px 0 10px;
+  }
+
+  .logolink a,
+  .signinlink a {
+    width: 20vw;
+  }
+
+  .titlesr {
+    margin: 20px 0 30px 0;
+  }
+
+  .play-liste {
+    grid-template-columns: repeat(auto-fit, minmax(80vw, 20vw));
+  }
+
+  .song-in-playlist {
+    width: 90vw;
+  }
+
+  .cover {
+    width: 80%;
+  }
+
+  .player-in-list {
+    width: 50vw;
+  }
+
+  .plt-name {
+    margin: 30px 0px 20px 10px;
+  }
+
+  #LoginTable {
+    width: 100vw;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    border: rgba(237, 200, 50) solid 1px;
+    top: 40%;
+  }
+
+  #form_user {
+    width: 100%;
+    border: 0;
+  }
+
+  .signInImg {
+    width: 100%;
+    padding-top: 0px;
+    border: 0;
+  }
+
+  .headphn {
+    width: 30%;
+    margin-top: 20px;
+  }
+
+  #btn2 {
+    margin-top: 60px;
+  }
+
+  .link-spotify {
+    width: 70%;
+  }
+
+  #form-playlist {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+  }
+
+  .plt-img {
+    width: 100%;
+  }
+
+  .cover-song {
+    width: 60%;
+  }
+
+  .list-title {
+    width: 90vw;
+    flex-direction: column;
+  }
+
+  .songs {
+    width: 100%;
+    flex-direction: column;
   }
 }
