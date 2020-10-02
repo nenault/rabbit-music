@@ -1,14 +1,15 @@
 <div class="list-title">
     <h1 class="plt-name">{{playlist.name}}</h1><a href="/playlists/copy-playlist/{{playlist.id}}" class="copy-btn">Copy
         this playlist</a>
-        {{#isSpotifyLoggedIn isSpotifyLoggedIn}}
-        <a href="/playlists/export/{{playlist.id}}" class="copy-btn">Export
+    {{#isSpotifyLoggedIn isSpotifyLoggedIn}}
+    <a href="/playlists/export/{{playlist.id}}" class="copy-btn">Export
         this playlist</a>
-        {{/isSpotifyLoggedIn}}
+    {{/isSpotifyLoggedIn}}
 </div>
 
 <div class="prop-plt">
-    <p class="username">Created by <span class="num"><a class="playlist-autor" href="/playlists/user/{{playlist.user.id}}">{{playlist.user.username}}</a></span></p>
+    <p class="username">Created by <span class="num"><a class="playlist-autor"
+                href="/playlists/user/{{playlist.user.id}}">{{playlist.user.username}}</a></span></p>
     <p> - </p>
     <p class="copies">Copied <span class="num">{{#timeOrTimes playlist.copies}} {{/timeOrTimes}}</span></p>
     <p class="copies">{{#isExported isExported}} {{/isExported}}</p>
