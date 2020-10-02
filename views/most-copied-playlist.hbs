@@ -7,7 +7,7 @@
     <div class="playslist-indiv">
         <div>
             <p class="rel-plt-title"><a class="playlist-lk" href="/playlists/{{this.id}}">{{this.name}}</a></p>
-            <p class="user-name-list">Copied<span class="yellow"> {{this.copies}} </span>times</p>
+            <p class="user-name-list">Copied<span class="yellow"> {{#timeOrTimes this.copies}}{{/timeOrTimes}} </span></p>
 
             <p class="user-name-list">created by <a class="yellow"
                     href="/playlists/user/{{this.user.id}}">{{this.user.username}}</a></p>
