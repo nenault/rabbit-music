@@ -69,7 +69,7 @@ body {
 
 .headphones {
   width: 25px;
-
+  height: auto;
 }
 
 .signin a, .signin2 a {

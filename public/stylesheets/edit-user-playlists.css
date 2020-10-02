@@ -31,7 +31,7 @@
 
 .spot-logo {
     width : 35px;
-
+    height: auto;
     margin : 5px 10px 5px 10px;
     display: inline-block;
 vertical-align: middle;

@@ -10,6 +10,7 @@
 
 .img-list-playlist {
     width : 20%;
+    height: auto;
     display: inline-block;
     padding-right : 10px;
 }
