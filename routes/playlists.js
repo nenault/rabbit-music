@@ -334,9 +334,10 @@ router.get("/:state/:id/:query", protectPrivateRoute, function (
     .then(function (response) {
       const accessToken = response.data.access_token;
       const refreshToken = response.data.refresh_token;
+      let search = req.params.query.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
       axios({
-        url: `https://api.spotify.com/v1/search?q=${req.params.query}&type=track,artist`,
+        url: `https://api.spotify.com/v1/search?q=${search}&type=track,artist&market=FR`,
 
         headers: {
           Accept: "application/json",
