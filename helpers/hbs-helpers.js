@@ -8,6 +8,24 @@ hbs.registerHelper("isSameId", function (value1, value2, options) {
   }
 });
 
+hbs.registerHelper("isSpotifyLoggedIn", function (value1, options) {
+  if (value1) {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
+  }
+});
+
+hbs.registerHelper("timeOrTimes", function (value1) {
+  if (value1 > 1) {
+    const times = value1 + " times"
+    return times
+  } else {
+    const time = value1 + " time"
+    return time
+  }
+});
+
 hbs.registerHelper('each_upto', function(ary, max, options) {
   if(!ary || ary.length == 0)
       return options.inverse(this);

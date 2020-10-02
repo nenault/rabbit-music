@@ -147,7 +147,7 @@ router.get("/manage-playlist", protectPrivateRoute, async function (
 ) {
   try {
     const relatedPlaylist = await Playlist.find().populate("user");
-
+    const isSpotifyLoggedIn = req.session.currentUser.isSpotify;
     // console.log(relatedPlaylist);
     const allSongsId = [];
     const objSongs = {};
@@ -202,6 +202,7 @@ router.get("/manage-playlist", protectPrivateRoute, async function (
     res.render("connected/edit-user-playlists", {
       relatedPlaylist,
       userId: req.session.currentUser._id,
+      isSpotifyLoggedIn
     });
   } catch (error) {
     next(error);
@@ -488,6 +489,7 @@ router.get("/:id", async function (req, res, next) {
     const playlist = await Playlist.findById(playlistId).populate("user");
     //console.log(playlist.songs);
     const ids = playlist.songs;
+    const isSpotifyLoggedIn = req.session.currentUser.isSpotify;
 
     axios({
       url: "https://accounts.spotify.com/api/token",
@@ -526,6 +528,7 @@ router.get("/:id", async function (req, res, next) {
             res.render("playlist", {
               playlist: playlist,
               songs: response.data.tracks,
+              isSpotifyLoggedIn
             });
           })
           .catch((err) => {

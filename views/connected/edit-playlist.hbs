@@ -17,7 +17,7 @@
             </div>
             <div class="song-tle">
                 <p class="song-title">{{this.name}}</p>
-                <p class="num">{{#each this.artists}}{{name}}, {{/each}}</p>
+                <p class="num">{{#artistDisplay2 this.artists}} {{/artistDisplay2}}</p>
             </div>
             <div class="audio2">
                 <audio class="player-in-list" controls src="{{this.preview_url}}">

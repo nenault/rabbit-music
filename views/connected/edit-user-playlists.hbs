@@ -1,6 +1,8 @@
 <h1 class="titlesr">Edit your own playlist</h1>
 
+{{#isSpotifyLoggedIn isSpotifyLoggedIn}}
 <p class="link-spotify"><a href="/playlists/manage-playlist/import"><img src="/images/spot.png" class="spot-logo">Import from Spotify</a></p>
+{{/isSpotifyLoggedIn}}
 
 <div class="play-liste">
     {{#each relatedPlaylist}}
