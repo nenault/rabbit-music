@@ -9,7 +9,7 @@
 @import "related-playlists.css";
 
 body {
-  padding: 50px;
+  padding: 20px 50px 50px 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   position: relative;
   min-height: 100vh;
