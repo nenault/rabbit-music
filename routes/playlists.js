@@ -490,7 +490,11 @@ router.get("/:id", async function (req, res, next) {
     const playlist = await Playlist.findById(playlistId).populate("user");
     //console.log(playlist.songs);
     const ids = playlist.songs;
-    const isSpotifyLoggedIn = req.session.currentUser.isSpotify;
+    let isSpotifyLoggedIn = Boolean;
+    if (req.session.currentUser && req.session.currentUser.isSpotify) {
+      isSpotifyLoggedIn = req.session.currentUser.isSpotify
+    }
+    else isSpotifyLoggedIn = false;
     const isExported = req.query.isExported;
 
     axios({
