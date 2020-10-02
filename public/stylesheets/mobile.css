@@ -1,0 +1,42 @@
+@media screen and (max-width: 425px) {
+  body {
+    padding: 0px !important;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .signin {
+      width: 80vw;
+  }
+
+  .mainTitle {
+    width: 90% !important;
+    margin-top: 20px;
+    margin-left: 8%;
+  }
+
+  .tagline {
+    margin: 0px;
+  }
+
+
+.searchBox {
+    width: 90vw;
+}
+  .display {
+    flex-direction: column;
+    margin-top:30px;
+    margin-left:10%;
+    height: 110vh;
+  }
+  .displaylist {
+      width: 100%;
+      margin-bottom:30px;
+  }
+
+  #foot {
+    left: 5%;
+  }
+}
