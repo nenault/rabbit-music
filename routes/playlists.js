@@ -490,6 +490,7 @@ router.get("/:id", async function (req, res, next) {
     //console.log(playlist.songs);
     const ids = playlist.songs;
     const isSpotifyLoggedIn = req.session.currentUser.isSpotify;
+    const isExported = req.query.isExported;
 
     axios({
       url: "https://accounts.spotify.com/api/token",
@@ -528,7 +529,8 @@ router.get("/:id", async function (req, res, next) {
             res.render("playlist", {
               playlist: playlist,
               songs: response.data.tracks,
-              isSpotifyLoggedIn
+              isSpotifyLoggedIn,
+              isExported
             });
           })
           .catch((err) => {
@@ -777,7 +779,6 @@ router.get(
       const playlist = await Playlist.findById(req.session.playlistId).populate(
         "user"
       );
-
       playlist.songs = playlist.songs.map((i) => "spotify:track:" + i);
 
       const uriString = playlist.songs.toString();
@@ -848,7 +849,8 @@ router.get(
                 },
               })
                 .then((response) => {
-                  res.redirect(`/playlists/${playlist.id}`);
+                  res.redirect(`/playlists/${playlist.id}`+
+                  "?isExported=true");
                 })
                 .catch((err) => {
                   console.log(err);

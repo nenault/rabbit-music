@@ -78,14 +78,17 @@ hbs.registerHelper("artistDisplay2", function (list) {
   }
 })
 
-/* if (song.artists.length > 1) {
-  const artArr = [];
-  for (let i = 0; i < song.artists.length; i++) {
-    artArr.push(song.artists[i].name);
+hbs.registerHelper("messageNoPlaylist", function (list) {
+  
+  if (list.length < 1) {
+   return "No related playlist yet!" 
   }
-  // console.log(artArr);
-  let getPreview = "";
-  if (song.preview_url != null) {
-    getPreview = song.preview_url;
+})
+
+hbs.registerHelper("isExported", function (value) {
+  
+  if (value) {
+   return " - Your playlist has been exported!" 
   }
-  const artistsList = artArr.join(", "); */
+})
+
