@@ -123,11 +123,11 @@ router.get("/redirect-spotify", async (req, res, next) => {
                   })
                     .then((response) => {
                       (async () => {
-                        console.log(response.data.items);
+                        //console.log(response.data.items);
                         const playlistArray = response.data.items;
                         
                         for (let i = 0; i < playlistArray.length; i++) {
-                          console.log(playlistArray[i].tracks.href);
+                        //  console.log(playlistArray[i].tracks.href);
                           const playlistsList = playlistArray[i].tracks.href;
                           axios({
                             url: `${playlistsList}`,
