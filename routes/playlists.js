@@ -867,4 +867,68 @@ router.get(
   }
 );
 
+router.get("/most-popular/all", async function (req, res, next) {
+  try {
+    const relatedPlaylist = await Playlist.find().sort({copies : -1}).populate("user");
+
+    // console.log(relatedPlaylist);
+    const allSongsId = [];
+    const objSongs = {};
+    const idSongs = {};
+    let i = 0;
+    for (let playlist of relatedPlaylist) {
+      // console.log(playlist);
+      const keyName = "playlist" + (i + 1);
+      i++;
+      objSongs[keyName] = [];
+      allSongsId[keyName] = [];
+
+      idSongs[keyName] = [];
+      playlist.songs.splice(5);
+      ids = playlist.songs.join(",");
+      idSongs[keyName].push(ids);
+
+      // console.log(idSongs[keyName]);
+      const { data: token } = await axios({
+        url: "https://accounts.spotify.com/api/token",
+        method: "post",
+        params: {
+          grant_type: "client_credentials",
+        },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        auth: {
+          username: process.env.CLIENT_ID,
+          password: process.env.CLIENT_SECRET,
+        },
+      });
+      const response = await axios({
+        url: `https://api.spotify.com/v1/tracks/?ids=${idSongs[keyName]}`,
+
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: {
+          access_token: token.access_token,
+          refresh_token: token.refresh_token,
+        },
+      });
+      response.data.tracks.forEach((song) => {
+        objSongs[keyName].push(song);
+      });
+      playlist.details.push(...objSongs[keyName]);
+    }
+    // res.json(relatedPlaylist)
+    res.render("most-copied-playlist", {
+      relatedPlaylist,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 module.exports = router;

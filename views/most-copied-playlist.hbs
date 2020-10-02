@@ -1,14 +1,17 @@
-<h1 class="titlesr">All Playlist</h1>
+<h1 class="titlesr">Most Popular Playlists</h1>
 
 <div class="play-liste">
-    {{#each relatedPlaylist}}
+    {{#each_upto relatedPlaylist 4}}
 
 
     <div class="playslist-indiv">
         <div>
             <p class="rel-plt-title"><a class="playlist-lk" href="/playlists/{{this.id}}">{{this.name}}</a></p>
+            <p class="user-name-list">Copied: {{this.copies}}x</p>
+
             <p class="user-name-list">created by <a class="yellow"
                     href="/playlists/user/{{this.user.id}}">{{this.user.username}}</a></p>
+
 
             <ul class="song-lists">
 
@@ -32,6 +35,6 @@
             <a class="see-btn" href="/playlists/{{this._id}}">Full playlist</a>
         </div>
     </div>
-    {{/each}}
+    {{/each_upto}}
 
 </div>
