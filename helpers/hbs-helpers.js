@@ -8,6 +8,24 @@ hbs.registerHelper("isSameId", function (value1, value2, options) {
   }
 });
 
+hbs.registerHelper("isSpotifyLoggedIn", function (value1, options) {
+  if (value1) {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
+  }
+});
+
+hbs.registerHelper("timeOrTimes", function (value1) {
+  if (value1 > 1) {
+    const times = value1 + " times"
+    return times
+  } else {
+    const time = value1 + " time"
+    return time
+  }
+});
+
 hbs.registerHelper('each_upto', function(ary, max, options) {
   if(!ary || ary.length == 0)
       return options.inverse(this);
@@ -60,14 +78,17 @@ hbs.registerHelper("artistDisplay2", function (list) {
   }
 })
 
-/* if (song.artists.length > 1) {
-  const artArr = [];
-  for (let i = 0; i < song.artists.length; i++) {
-    artArr.push(song.artists[i].name);
+hbs.registerHelper("messageNoPlaylist", function (list) {
+  
+  if (list.length < 1) {
+   return "No related playlist yet!" 
   }
-  // console.log(artArr);
-  let getPreview = "";
-  if (song.preview_url != null) {
-    getPreview = song.preview_url;
+})
+
+hbs.registerHelper("isExported", function (value) {
+  
+  if (value) {
+   return " - Your playlist has been exported!" 
   }
-  const artistsList = artArr.join(", "); */
+})
+
