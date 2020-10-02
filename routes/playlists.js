@@ -297,6 +297,7 @@ router.post(
   async (req, res, next) => {
     try {
       const playlistId = req.params.id;
+      console.log(req.body);
 
       let songListToarray = req.body.songs.split(",");
 
